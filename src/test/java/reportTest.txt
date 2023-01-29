@@ -1,0 +1,16 @@
+Competitor               Level     Agent        Scores         Overall
+101 Caitlin Emily Head     Bronze     Breach     0, 1, 4, 2, 1, 1     0.0     
+102 Joshua Luke Perry     Iron     Sova     5, 5, 5, 5, 5, 5     5.0     
+103 Bradley Gordon-Taylor     Silver     Viper     3, 1, 3, 2, 4, 1     2.22     
+104 Nathan Perry     Gold     Brimstone     0, 0, 0, 0, 0, 0     0.0     
+
+
+Statistics
+The Highest Overall Score: 5.0
+Average Score: 2.2083333333333335
+Level Distribution:
+Iron  Bronze  Silver  Gold
+1     1       1       1
+Score Distribution:
+0     1     2     3     4     5
+7     5     2     2     2     6

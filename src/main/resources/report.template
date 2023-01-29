@@ -1,0 +1,12 @@
+%TABLE%
+
+
+Statistics
+The Highest Overall Score: %HIGH-SCORE%
+Average Score: %AVG-SCORE%
+Level Distribution:
+%LEVEL0%  %LEVEL1%  %LEVEL2%  %LEVEL3%
+%VALUE0%     %VALUE1%       %VALUE2%       %VALUE3%
+Score Distribution:
+0     1     2     3     4     5
+%SCORE0%     %SCORE1%     %SCORE2%     %SCORE3%     %SCORE4%     %SCORE5%

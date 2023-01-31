@@ -1,4 +1,4 @@
-package org.r0r5chach.valorant;
+package com.r0r5chach.valorant;
 
 import java.util.Locale;
 

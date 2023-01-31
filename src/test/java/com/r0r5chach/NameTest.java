@@ -1,5 +1,5 @@
+package com.r0r5chach;
 import org.junit.jupiter.api.Test;
-import org.r0r5chach.Name;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

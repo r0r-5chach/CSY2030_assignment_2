@@ -1,4 +1,4 @@
-package org.r0r5chach.r6;
+package com.r0r5chach.r6;
 
 import java.util.Locale;
 

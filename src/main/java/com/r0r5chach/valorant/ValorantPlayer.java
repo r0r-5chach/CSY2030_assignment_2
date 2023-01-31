@@ -1,10 +1,10 @@
-package org.r0r5chach.valorant;
+package com.r0r5chach.valorant;
 
 import java.util.Arrays;
 
-import org.r0r5chach.Competitor;
-import org.r0r5chach.Name;
-import org.r0r5chach.Rank;
+import com.r0r5chach.Competitor;
+import com.r0r5chach.Name;
+import com.r0r5chach.Rank;
 /**
  * Class that defines the various attributes and methods associated with a Valorant Player
  * @author r0r5chach

@@ -1,4 +1,4 @@
-package org.r0r5chach;
+package com.r0r5chach;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,11 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import org.r0r5chach.r6.R6Attacker;
-import org.r0r5chach.r6.R6Defender;
-import org.r0r5chach.r6.R6Player;
-import org.r0r5chach.valorant.ValorantAgent;
-import org.r0r5chach.valorant.ValorantPlayer;
+import com.r0r5chach.r6.R6Attacker;
+import com.r0r5chach.r6.R6Defender;
+import com.r0r5chach.r6.R6Player;
+import com.r0r5chach.valorant.ValorantAgent;
+import com.r0r5chach.valorant.ValorantPlayer;
 
 
 public class CompetitorList {
@@ -164,7 +164,7 @@ public class CompetitorList {
         FileWriter report = null;
 
         do {
-            path = Path.of("src/main/resources/report"+count+ ".txt");
+            path = Path.of("src/main/resources/com/r0r5chach/report"+count+ ".txt");
             exists = Files.exists(path);
 
             if(exists) {
@@ -201,7 +201,7 @@ public class CompetitorList {
     }
 
     private String reportTemplate() throws IOException {
-        return Files.readString(Path.of("src/main/resources/report.template"));
+        return Files.readString(Path.of("src/main/resources/com/r0r5chach/report.template"));
         
     }
 

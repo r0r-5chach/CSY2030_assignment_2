@@ -1,10 +1,10 @@
-package org.r0r5chach.r6;
+package com.r0r5chach.r6;
 
 import java.util.Arrays;
 
-import org.r0r5chach.Competitor;
-import org.r0r5chach.Name;
-import org.r0r5chach.Rank;
+import com.r0r5chach.Competitor;
+import com.r0r5chach.Name;
+import com.r0r5chach.Rank;
 
 public class R6Player extends Competitor{
     private R6Attacker favoriteAttacker;

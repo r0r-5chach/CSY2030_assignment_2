@@ -1,4 +1,4 @@
-package org.r0r5chach;
+package com.r0r5chach;
 
 /**
  * Class that defines a name and it's parts

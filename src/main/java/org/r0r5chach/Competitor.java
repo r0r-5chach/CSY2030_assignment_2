@@ -1,13 +1,11 @@
 package org.r0r5chach;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
-
 /**
  * Class that defines the various attributes and methods associated with a Valorant Player
  * @author r0r5chach
  */
-public class Competitor {
+public abstract class Competitor {
     /**
      * The format to use when converting decimal numbers to strings
      */
@@ -117,13 +115,7 @@ public class Competitor {
      * Get all the attributes of the player
      * @return all attributes of the player in a formatted string
      */
-    public String getFullDetails() {
-        return "Player Number: " + getPlayerNumber() +
-                "\nName: " + getPlayerName().getFullName() +
-                "\nPlayer Level: " + getPlayerLevel().getRank() +
-                "\nScores: " + Arrays.toString(getScores()).replace("[","").replace("]", "") + //replace() allows the array to not be surrounded by brackets
-                "\nOverall Score: " + getOverallScore();
-    }
+    public abstract String getFullDetails();
     /**
      * Get the important attributes of the player
      * @return a formatted string containing the playerNumber, playerName, and overall score

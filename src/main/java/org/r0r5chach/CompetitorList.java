@@ -42,18 +42,9 @@ public class CompetitorList {
             switch (list.getName()) {
                 case "valorantPlayers.txt" -> competitors.add(parseValorantPlayer(row));
                 case "r6Players.txt" -> competitors.add(parseR6Player(row));
-                default -> competitors.add(parseRow(row));
             }
         }
         reader.close();
-    }
-
-    private Competitor parseRow(String[] row) {
-        int playerNumber = Integer.parseInt(row[0]);
-        Name playerName = new Name(row[1]);
-        Rank playerLevel = Rank.valueOf(row[2]);
-        int[] scores = parseScores(row[3]);
-        return new Competitor(playerNumber, playerName, playerLevel, scores);
     }
 
     private ValorantPlayer parseValorantPlayer(String[] row) {

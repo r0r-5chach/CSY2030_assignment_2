@@ -9,6 +9,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.r0r5chach.valorant.ValorantAgent;
+import org.r0r5chach.valorant.ValorantPlayer;
+
 public class CompetitorList {
     private final ArrayList<ValorantPlayer> competitors;
 
@@ -43,7 +46,7 @@ public class CompetitorList {
     private ValorantPlayer parseRow(String[] row) {
         int playerNumber = Integer.parseInt(row[0]);
         Name playerName = new Name(row[1]);
-        ValorantRank playerLevel = ValorantRank.valueOf(row[2]);
+        Rank playerLevel = Rank.valueOf(row[2]);
         ValorantAgent favoriteAgent = ValorantAgent.valueOf(row[3]);
         int[] scores = parseScores(row[4]);
         return new ValorantPlayer(playerNumber, playerName, playerLevel, favoriteAgent, scores);
@@ -184,7 +187,7 @@ public class CompetitorList {
 
         int[] freqs = generateLevelFreqs();
         for (int i = 0; i < freqs.length; i++) {
-            replaceVar( "%LEVEL"+i+"%", ValorantRank.values()[i].getRank());
+            replaceVar( "%LEVEL"+i+"%", Rank.values()[i].getRank());
             replaceVar( "%VALUE"+i+"%", String.valueOf(freqs[i]));
         }
 

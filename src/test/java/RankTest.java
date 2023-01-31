@@ -1,12 +1,12 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import org.r0r5chach.ValorantRank;
+import org.r0r5chach.Rank;
 
 
-public class ValorantRankTest {
+public class RankTest {
     @Test
     public void valorantRankTestGetRank() {
-        ValorantRank vR = ValorantRank.IRON;
-        assertEquals("Iron", vR.getRank());
+        Rank vR = Rank.BRONZE;
+        assertEquals("Bronze", vR.getRank());
     }
 }

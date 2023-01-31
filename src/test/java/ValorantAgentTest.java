@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import org.r0r5chach.ValorantAgent;
+import org.r0r5chach.valorant.ValorantAgent;
 
 public class ValorantAgentTest {
     @Test

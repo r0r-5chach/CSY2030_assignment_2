@@ -9,18 +9,20 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.r0r5chach.r6.R6Attacker;
+import org.r0r5chach.r6.R6Defender;
+import org.r0r5chach.r6.R6Player;
+import org.r0r5chach.valorant.ValorantAgent;
+import org.r0r5chach.valorant.ValorantPlayer;
+
 
 public class CompetitorList {
     private final ArrayList<Competitor> competitors;
-
-
-
     private String reportContents;
 
 
-    public CompetitorList(File list) throws IOException {
+    public CompetitorList() throws IOException {
         competitors = new ArrayList<>();
-        readCompetitors(list);
         reportContents = reportTemplate();
     }
 
@@ -32,21 +34,45 @@ public class CompetitorList {
         return competitors;
     }
 
-    private void readCompetitors(File list) throws FileNotFoundException {
+    public void readCompetitors(File list) throws FileNotFoundException {
         Scanner reader = new Scanner(list);
+        
         while (reader.hasNextLine()) {
             String[] row = reader.nextLine().split("%");
-            competitors.add(parseRow(row));
+            switch (list.getName()) {
+                case "valorantPlayers.txt" -> competitors.add(parseValorantPlayer(row));
+                case "r6Players.txt" -> competitors.add(parseR6Player(row));
+                default -> competitors.add(parseRow(row));
+            }
         }
         reader.close();
     }
 
-    private Competitor parseRow(String[] row) { //FIXME: parse row for different amount of stuffs
+    private Competitor parseRow(String[] row) {
         int playerNumber = Integer.parseInt(row[0]);
         Name playerName = new Name(row[1]);
         Rank playerLevel = Rank.valueOf(row[2]);
-        int[] scores = parseScores(row[4]);
+        int[] scores = parseScores(row[3]);
         return new Competitor(playerNumber, playerName, playerLevel, scores);
+    }
+
+    private ValorantPlayer parseValorantPlayer(String[] row) {
+        int playerNumber = Integer.parseInt(row[0]);
+        Name playerName = new Name(row[1]);
+        Rank playerLevel = Rank.valueOf(row[2]);
+        ValorantAgent favoriteAgent = ValorantAgent.valueOf(row[3]);
+        int[] scores = parseScores(row[4]);
+        return new ValorantPlayer(playerNumber, playerName, playerLevel, favoriteAgent, scores);
+    }
+
+    private R6Player parseR6Player(String[] row) {
+        int playerNumber = Integer.parseInt(row[0]);
+        Name playerName = new Name(row[1]);
+        Rank playerLevel = Rank.valueOf(row[2]);
+        R6Attacker favoriteAttacker = R6Attacker.valueOf(row[3]);
+        R6Defender favoriteDefender = R6Defender.valueOf(row[4]);
+        int[] scores = parseScores(row[5]);
+        return new R6Player(playerNumber, playerName, playerLevel, favoriteAttacker, favoriteDefender, scores);
     }
 
     private int[] parseScores(String row) {
@@ -59,13 +85,16 @@ public class CompetitorList {
     }
 
     private String generateTable() {
-        StringBuilder table = new StringBuilder("Competitor               Level     Agent        Scores         Overall");
+        StringBuilder table = new StringBuilder("Competitor               Level        Scores         Overall         Favorite Character(s)");
         for (Competitor player: getCompetitors()) {
             table.append("\n");
             for (String detail: player.getFullDetails().split("\n")) {
                 String[] detailParts = detail.split(": ");
                 if (detailParts[0].equals("Player Number")) {
                     table.append(detailParts[1]).append(" ");
+                }
+                else if (detailParts[0].equals("Favorite Agent") || detailParts[0].equals("Favorite Attacker") || detailParts[0].equals("Favorite Defender")) {
+                    table.append(detailParts[0] + ": " + detailParts[1]).append(" ");
                 }
                 else {
                     table.append(detailParts[1]).append("     ");

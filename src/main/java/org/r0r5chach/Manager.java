@@ -29,9 +29,12 @@ public class Manager {
     }
 
     private void init() {
-        File sourceFile = new File("src/main/resources/test.txt");
+        File valorantPlayers = new File("src/main/resources/valorantPlayers.txt");
+        File r6Players = new File("src/main/resources/r6Players.txt");
         try {
-            competitors = new CompetitorList(sourceFile);
+            competitors = new CompetitorList();
+            competitors.readCompetitors(valorantPlayers);
+            competitors.readCompetitors(r6Players);
         }
         catch (Exception e) {
             createErrorLog(e, "src/main/resources/log.txt");

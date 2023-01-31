@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import org.r0r5chach.r6.R6Attacker;
@@ -77,21 +79,27 @@ public class CompetitorList {
 
     private String generateTable() {
         StringBuilder table = new StringBuilder("Competitor               Level        Scores         Overall         Favorite Character(s)");
+        Competitor best = null;
+        double bestScore = 0;
+        Rank bestRank = Rank.BRONZE;
+        List<Rank> ranks = Arrays.asList(Rank.values());
         for (Competitor player: getCompetitors()) {
-            table.append("\n");
-            for (String detail: player.getFullDetails().split("\n")) {
-                String[] detailParts = detail.split(": ");
-                if (detailParts[0].equals("Player Number")) {
-                    table.append(detailParts[1]).append(" ");
-                }
-                else if (detailParts[0].equals("Favorite Agent") || detailParts[0].equals("Favorite Attacker") || detailParts[0].equals("Favorite Defender")) {
-                    table.append(detailParts[0] + ": " + detailParts[1]).append(" ");
-                }
-                else {
-                    table.append(detailParts[1]).append("     ");
+            if (player.getOverallScore() > bestScore) {
+                best = player;
+                bestScore = player.getOverallScore();
+                bestRank = player.getPlayerLevel();
+            }
+            else if (player.getOverallScore() == bestScore) {
+                if (ranks.indexOf(player.getPlayerLevel()) > ranks.indexOf(bestRank)) {
+                    best = player;
+                    bestScore = player.getOverallScore();
+                    bestRank = player.getPlayerLevel();
                 }
             }
+            table.append("\n");
+            table.append(player.getShortDetails()).append(" ");
         }
+        table.append("\n\n").append(best.getFullDetails());
         return table.toString();
     }
 

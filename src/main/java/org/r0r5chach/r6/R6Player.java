@@ -36,9 +36,9 @@ public class R6Player extends Competitor{
         return "Player Number: " + getPlayerNumber() +
                 "\nName: " + getPlayerName().getFullName() +
                 "\nPlayer Level: " + getPlayerLevel().getRank() +
-                "\nFavorite Attacker: " + getFavoriteAttacker().getAttacker() +
-                "\nFavorite Attacker: " + getFavoriteDefender().getDefender() +
                 "\nScores: " + Arrays.toString(getScores()).replace("[","").replace("]", "") + //replace() allows the array to not be surrounded by brackets
-                "\nOverall Score: " + getOverallScore();
+                "\nOverall Score: " + getOverallScore() +
+                "\nFavorite Attacker: " + getFavoriteAttacker().getAttacker() +
+                "\nFavorite Defender: " + getFavoriteDefender().getDefender();
     }
 }

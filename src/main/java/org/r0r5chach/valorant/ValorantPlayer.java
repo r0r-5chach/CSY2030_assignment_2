@@ -44,8 +44,8 @@ public class ValorantPlayer extends Competitor {
         return "Player Number: " + getPlayerNumber() +
                 "\nName: " + getPlayerName().getFullName() +
                 "\nPlayer Level: " + getPlayerLevel().getRank() +
-                "\nFavorite Agent: " + getFavoriteAgent().getAgent() +
                 "\nScores: " + Arrays.toString(getScores()).replace("[","").replace("]", "") + //replace() allows the array to not be surrounded by brackets
-                "\nOverall Score: " + getOverallScore();
+                "\nOverall Score: " + getOverallScore() +
+                "\nFavorite Agent: " + getFavoriteAgent().getAgent();
     }
 }

@@ -9,11 +9,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.r0r5chach.valorant.ValorantAgent;
-import org.r0r5chach.valorant.ValorantPlayer;
 
 public class CompetitorList {
-    private final ArrayList<ValorantPlayer> competitors;
+    private final ArrayList<Competitor> competitors;
 
 
 
@@ -30,7 +28,7 @@ public class CompetitorList {
         return reportContents;
     }
 
-    public ArrayList<ValorantPlayer> getCompetitors() {
+    public ArrayList<Competitor> getCompetitors() {
         return competitors;
     }
 
@@ -43,13 +41,12 @@ public class CompetitorList {
         reader.close();
     }
 
-    private ValorantPlayer parseRow(String[] row) {
+    private Competitor parseRow(String[] row) { //FIXME: parse row for different amount of stuffs
         int playerNumber = Integer.parseInt(row[0]);
         Name playerName = new Name(row[1]);
         Rank playerLevel = Rank.valueOf(row[2]);
-        ValorantAgent favoriteAgent = ValorantAgent.valueOf(row[3]);
         int[] scores = parseScores(row[4]);
-        return new ValorantPlayer(playerNumber, playerName, playerLevel, favoriteAgent, scores);
+        return new Competitor(playerNumber, playerName, playerLevel, scores);
     }
 
     private int[] parseScores(String row) {
@@ -63,7 +60,7 @@ public class CompetitorList {
 
     private String generateTable() {
         StringBuilder table = new StringBuilder("Competitor               Level     Agent        Scores         Overall");
-        for (ValorantPlayer player: getCompetitors()) {
+        for (Competitor player: getCompetitors()) {
             table.append("\n");
             for (String detail: player.getFullDetails().split("\n")) {
                 String[] detailParts = detail.split(": ");
@@ -80,12 +77,12 @@ public class CompetitorList {
 
     private int[] generateLevelFreqs() {
         int[] freqs = {0, 0, 0, 0};
-        for (ValorantPlayer player: getCompetitors()) {
+        for (Competitor player: getCompetitors()) {
             switch (player.getPlayerLevel()) {
-                case IRON -> freqs[0] += 1;
-                case BRONZE -> freqs[1] += 1;
-                case SILVER -> freqs[2] += 1;
-                case GOLD -> freqs[3] += 1;
+                case BRONZE -> freqs[0] += 1;
+                case SILVER -> freqs[1] += 1;
+                case GOLD -> freqs[2] += 1;
+                case PLATINUM -> freqs[3] += 1;
             }
         }
         return freqs;
@@ -93,7 +90,7 @@ public class CompetitorList {
 
     private int[] generateScoreFreqs() {
         int[] freqs = {0, 0, 0, 0, 0, 0};
-        for (ValorantPlayer player: getCompetitors()) {
+        for (Competitor player: getCompetitors()) {
             for (int score: player.getScores()) {
                 switch (score) {
                     case 0 -> freqs[0] += 1;
@@ -111,7 +108,7 @@ public class CompetitorList {
     private double generateAverageScore() {
         double avg = 0;
         int totalScores = 0;
-        for (ValorantPlayer player: getCompetitors()) {
+        for (Competitor player: getCompetitors()) {
             for (int score: player.getScores()) {
                 totalScores += 1;
                 avg += score;
@@ -123,7 +120,7 @@ public class CompetitorList {
 
     private double getHighScore() {
         double hS = 0;
-        for (ValorantPlayer player: getCompetitors()) {
+        for (Competitor player: getCompetitors()) {
             if (player.getOverallScore() > hS) {
                 hS = player.getOverallScore();
             }

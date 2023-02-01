@@ -18,6 +18,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import static com.r0r5chach.pages.EditPage.loadPlayer;
+import static com.r0r5chach.pages.EditPage.loadFavoriteCharacters;
+import static com.r0r5chach.pages.EditPage.loadScores;
+import static com.r0r5chach.pages.EditPage.updatePlayer;
+import static com.r0r5chach.pages.EditPage.updateFavoriteCharacters;
+import static com.r0r5chach.pages.EditPage.updateScores;
+import static com.r0r5chach.pages.ViewPage.generateTable;
+import static com.r0r5chach.pages.ViewPage.loadTable;
+
 public class MainController implements Initializable {
     private CompetitorList competitors;
     private ArrayList<Integer> competitorIds;
@@ -86,7 +95,7 @@ public class MainController implements Initializable {
             scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
             fields = new TextField[]{playerNumber, playerName, overallScore};
             loadCompetitors();
-            ViewPage.generateTable(competitorTable);
+            generateTable(competitorTable);
             loadEdit();
         });
 
@@ -99,23 +108,23 @@ public class MainController implements Initializable {
     @FXML
     private void getCompetitor() {
         Competitor player = competitors.getCompetitors().get(competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem()));
-        EditPage.loadPlayer(player,fields, playerLevel);
-        EditPage.loadFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent, favoriteCharacters);
-        EditPage.loadScores(player, scores);
+        loadPlayer(player,fields, playerLevel);
+        loadFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent, favoriteCharacters);
+        loadScores(player, scores);
     }
 
     @FXML
     private void updateCompetitor() {
         int playerIndex = competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem());
         Competitor player = competitors.getCompetitors().get(playerIndex);
-        EditPage.updatePlayer(player, fields, playerLevel);
-        EditPage.updateFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent);
-        EditPage.updateScores(player, scores);
+        updatePlayer(player, fields, playerLevel);
+        updateFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent);
+        updateScores(player, scores);
         competitorIds.set(playerIndex, player.getPlayerNumber());
         loadEdit();
-        EditPage.loadPlayer(player, fields, playerLevel);
-        EditPage.loadFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent, favoriteCharacters);
-        EditPage.loadScores(player, scores);
+        loadPlayer(player, fields, playerLevel);
+        loadFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent, favoriteCharacters);
+        loadScores(player, scores);
     }
 
     private void loadCompetitors(){
@@ -136,6 +145,6 @@ public class MainController implements Initializable {
 
     @FXML
     private void loadView() {
-        competitorTable.setItems(ViewPage.loadTable(this.competitors.getCompetitors()));
+        competitorTable.setItems(loadTable(this.competitors.getCompetitors()));
     }
 }

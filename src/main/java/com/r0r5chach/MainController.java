@@ -18,8 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -77,8 +75,6 @@ public class MainController implements Initializable {
     @FXML
     Button updateButton;
 
-    @FXML
-    TableView<Competitor> competitorTable;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,13 +124,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void loadView() {
-        competitorTable.getColumns().add(new TableColumn<Competitor,Integer>("Player Number"));
-        competitorTable.getColumns().add(new TableColumn<Competitor,String>("Player Name"));
-        competitorTable.getColumns().add(new TableColumn<Competitor,Rank>("Player Rank"));
-        competitorTable.getColumns().add(new TableColumn<Competitor,int[]>("Player Scores"));
-        //TODO: Add data to rows
-        //TODO: Add favorite characters
-        //FIXME: Change from TableView to different model type (maybe list view)
+        //TODO: Display all data from competitors
     }
 
     private void loadPlayer(Competitor player) {

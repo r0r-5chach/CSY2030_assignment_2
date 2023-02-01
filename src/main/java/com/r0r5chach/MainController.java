@@ -134,20 +134,30 @@ public class MainController implements Initializable {
         TableColumn<CompetitorRow,String> playerNameCol = new TableColumn<CompetitorRow,String>("Player Name");
         TableColumn<CompetitorRow,Rank> playerLevelCol = new TableColumn<CompetitorRow,Rank>("Player Level");
         TableColumn<CompetitorRow,String> scoresCol = new TableColumn<CompetitorRow,String>("Player Scores");
+        TableColumn<CompetitorRow,String> favoriteCharsCol = new TableColumn<CompetitorRow,String>("Favorite Characters");
+        TableColumn<CompetitorRow,String> favoriteAgentCol = new TableColumn<CompetitorRow,String>("Agent");
+        TableColumn<CompetitorRow,String> favoriteAttackerCol = new TableColumn<CompetitorRow,String>("Attacker");
+        TableColumn<CompetitorRow,String> favoriteDefenderCol = new TableColumn<CompetitorRow,String>("Defender");
         playerNumCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Integer>("playerNumber"));
         playerNameCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("playerName"));
         playerLevelCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Rank>("playerLevel"));
         scoresCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("scores"));
+        favoriteAgentCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteAgent"));
+        favoriteAttackerCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteAttacker"));
+        favoriteDefenderCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteDefender"));
         competitorTable.getColumns().add(playerNumCol);
         competitorTable.getColumns().add(playerNameCol);
         competitorTable.getColumns().add(playerLevelCol);
         competitorTable.getColumns().add(scoresCol);
+        favoriteCharsCol.getColumns().add(favoriteAgentCol);
+        favoriteCharsCol.getColumns().add(favoriteAttackerCol);
+        favoriteCharsCol.getColumns().add(favoriteDefenderCol);
+        competitorTable.getColumns().add(favoriteCharsCol);
     }
 
     @FXML
     private void loadView() {
         competitorTable.setItems(generateTable());
-        //TODO: Add favorite characters
     }
 
     private void loadPlayer(Competitor player) {
@@ -216,11 +226,8 @@ public class MainController implements Initializable {
             if (player instanceof ValorantPlayer) {
                 list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores(), ((ValorantPlayer) player).getFavoriteAgent()));
             }
-            else if (player instanceof R6Player) {
+            if (player instanceof R6Player) {
                 list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores(), ((R6Player) player).getFavoriteAttacker(), ((R6Player) player).getFavoriteDefender()));
-            }
-            else {
-                list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores()));
             }
         }
         return FXCollections.observableArrayList(list);

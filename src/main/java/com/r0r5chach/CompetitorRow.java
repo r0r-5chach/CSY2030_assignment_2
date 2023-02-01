@@ -15,18 +15,18 @@ public class CompetitorRow {
     private SimpleStringProperty playerName;
     private SimpleObjectProperty<Rank> playerLevel;
     private SimpleStringProperty scores;
-    private SimpleObjectProperty<ValorantAgent> favoriteAgent;
-    private SimpleObjectProperty<R6Attacker> favoriteAttacker;
-    private SimpleObjectProperty<R6Defender> favoriteDefender;
+    private SimpleStringProperty favoriteAgent;
+    private SimpleStringProperty favoriteAttacker;
+    private SimpleStringProperty favoriteDefender;
 
     public CompetitorRow(int playerNumber, Name playerName, Rank playerLevel, int[] scores) {
         this.playerNumber = new SimpleIntegerProperty(playerNumber);
         this.playerName = new SimpleStringProperty(playerName.getFullName());
         this.playerLevel = new SimpleObjectProperty<Rank>(playerLevel);
         this.scores = new SimpleStringProperty(Arrays.toString(scores).replace("[", "").replace("]", ""));
-        this.favoriteAgent = null;
-        this.favoriteAttacker = null;
-        this.favoriteDefender = null;
+        this.favoriteAgent = new SimpleStringProperty("N/A");
+        this.favoriteAttacker = new SimpleStringProperty("N/A");
+        this.favoriteDefender = new SimpleStringProperty("N/A");
     }
 
     public CompetitorRow(int playerNumber, Name playerName, Rank playerLevel, int[] scores, ValorantAgent favoriteAgent) {
@@ -34,9 +34,9 @@ public class CompetitorRow {
         this.playerName = new SimpleStringProperty(playerName.getFullName());
         this.scores = new SimpleStringProperty(Arrays.toString(scores).replace("[", "").replace("]", ""));
         this.playerLevel = new SimpleObjectProperty<Rank>(playerLevel);
-        this.favoriteAgent = new SimpleObjectProperty<ValorantAgent>(favoriteAgent);
-        this.favoriteAttacker = null;
-        this.favoriteDefender = null;
+        this.favoriteAgent = new SimpleStringProperty(favoriteAgent.getAgent());
+        this.favoriteAttacker = new SimpleStringProperty("N/A");
+        this.favoriteDefender = new SimpleStringProperty("N/A");
     }
 
     public CompetitorRow(int playerNumber, Name playerName, Rank playerLevel, int[] scores, R6Attacker favoriteAttacker, R6Defender favoriteDefender) {
@@ -44,9 +44,9 @@ public class CompetitorRow {
         this.playerNumber = new SimpleIntegerProperty(playerNumber);
         this.scores = new SimpleStringProperty(Arrays.toString(scores).replace("[", "").replace("]", ""));
         this.playerLevel = new SimpleObjectProperty<Rank>(playerLevel);
-        this.favoriteAgent = null;
-        this.favoriteAttacker = new SimpleObjectProperty<R6Attacker>(favoriteAttacker);
-        this.favoriteDefender = new SimpleObjectProperty<R6Defender>(favoriteDefender);
+        this.favoriteAgent = new SimpleStringProperty("N/A");
+        this.favoriteAttacker = new SimpleStringProperty(favoriteAttacker.getAttacker());
+        this.favoriteDefender = new SimpleStringProperty(favoriteDefender.getDefender());
     }
 
     public void setPlayerNumber(int newValue) {
@@ -61,13 +61,13 @@ public class CompetitorRow {
     public void setScores(String newValue) {
         this.scores.set(newValue);
     }
-    public void setFavoriteAgent(ValorantAgent newValue) {
+    public void setFavoriteAgent(String newValue) {
         this.favoriteAgent.set(newValue);
     }
-    public void setFavoriteAttacker(R6Attacker newValue) {
+    public void setFavoriteAttacker(String newValue) {
         this.favoriteAttacker.set(newValue);
     }
-    public void setFavoriteDefender(R6Defender newValue) {
+    public void setFavoriteDefender(String newValue) {
         this.favoriteDefender.set(newValue);
     }    
 
@@ -83,13 +83,13 @@ public class CompetitorRow {
     public String getScores() {
         return this.scores.get();
     }
-    public ValorantAgent getFavoriteAgent() {
+    public String getFavoriteAgent() {
         return this.favoriteAgent.get();
     }
-    public R6Attacker getFavoriteAttacker() {
+    public String getFavoriteAttacker() {
         return this.favoriteAttacker.get();
     }
-    public R6Defender getFavoriteDefender() {
+    public String getFavoriteDefender() {
         return this.favoriteDefender.get();
     }    
 }

@@ -4,6 +4,7 @@ module com.r0r5chach {
     requires javafx.fxml;
 
     opens com.r0r5chach to javafx.fxml;
+    opens com.r0r5chach.pages to javafx.base;
     exports com.r0r5chach;
     exports com.r0r5chach.competitor;
     exports com.r0r5chach.competitor.r6;

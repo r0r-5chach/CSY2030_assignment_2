@@ -1,6 +1,8 @@
 package com.r0r5chach;
 import org.junit.jupiter.api.Test;
 
+import com.r0r5chach.competitor.Name;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NameTest {

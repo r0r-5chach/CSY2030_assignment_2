@@ -1,13 +1,14 @@
 package com.r0r5chach.pages;
 
-import com.r0r5chach.Competitor;
-import com.r0r5chach.Name;
-import com.r0r5chach.Rank;
-import com.r0r5chach.r6.R6Attacker;
-import com.r0r5chach.r6.R6Defender;
-import com.r0r5chach.r6.R6Player;
-import com.r0r5chach.valorant.ValorantAgent;
-import com.r0r5chach.valorant.ValorantPlayer;
+import com.r0r5chach.competitor.Competitor;
+import com.r0r5chach.competitor.Name;
+import com.r0r5chach.competitor.Rank;
+import com.r0r5chach.competitor.r6.R6Attacker;
+import com.r0r5chach.competitor.r6.R6Defender;
+import com.r0r5chach.competitor.r6.R6Player;
+import com.r0r5chach.competitor.valorant.ValorantAgent;
+import com.r0r5chach.competitor.valorant.ValorantPlayer;
+
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;

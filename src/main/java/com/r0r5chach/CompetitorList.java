@@ -11,11 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import com.r0r5chach.r6.R6Attacker;
-import com.r0r5chach.r6.R6Defender;
-import com.r0r5chach.r6.R6Player;
-import com.r0r5chach.valorant.ValorantAgent;
-import com.r0r5chach.valorant.ValorantPlayer;
+import com.r0r5chach.competitor.Competitor;
+import com.r0r5chach.competitor.Name;
+import com.r0r5chach.competitor.Rank;
+import com.r0r5chach.competitor.r6.R6Attacker;
+import com.r0r5chach.competitor.r6.R6Defender;
+import com.r0r5chach.competitor.r6.R6Player;
+import com.r0r5chach.competitor.valorant.ValorantAgent;
+import com.r0r5chach.competitor.valorant.ValorantPlayer;
 
 
 public class CompetitorList {

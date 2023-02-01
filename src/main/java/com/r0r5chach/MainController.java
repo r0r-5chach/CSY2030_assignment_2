@@ -4,9 +4,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import com.r0r5chach.r6.R6Attacker;
-import com.r0r5chach.r6.R6Defender;
-import com.r0r5chach.valorant.ValorantAgent;
+
+import com.r0r5chach.competitor.Competitor;
+import com.r0r5chach.competitor.Rank;
+import com.r0r5chach.competitor.r6.R6Attacker;
+import com.r0r5chach.competitor.r6.R6Defender;
+import com.r0r5chach.competitor.valorant.ValorantAgent;
+import com.r0r5chach.pages.CompetitorRow;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

@@ -1,8 +1,11 @@
 package com.r0r5chach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import com.r0r5chach.valorant.ValorantAgent;
-import com.r0r5chach.valorant.ValorantPlayer;
+
+import com.r0r5chach.competitor.Name;
+import com.r0r5chach.competitor.Rank;
+import com.r0r5chach.competitor.valorant.ValorantAgent;
+import com.r0r5chach.competitor.valorant.ValorantPlayer;
 public class ValorantPlayerTest {
     @Test
     public void valorantPlayerTest() {

@@ -20,6 +20,11 @@ public class Manager extends Application {
         stage.show();
     }
 
+    @Override
+    public void stop() {
+        //TODO: output report to file
+    }
+
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }

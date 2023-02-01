@@ -6,4 +6,6 @@ module com.r0r5chach {
 
     opens com.r0r5chach to javafx.fxml;
     exports com.r0r5chach;
+    exports com.r0r5chach.r6;
+    exports com.r0r5chach.valorant;
 }

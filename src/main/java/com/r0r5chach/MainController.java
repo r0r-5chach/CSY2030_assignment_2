@@ -13,12 +13,16 @@ import com.r0r5chach.valorant.ValorantPlayer;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 public class MainController implements Initializable {
@@ -75,6 +79,8 @@ public class MainController implements Initializable {
     @FXML
     Button updateButton;
 
+    @FXML
+    TableView<CompetitorRow> competitorTable;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -124,7 +130,20 @@ public class MainController implements Initializable {
 
     @FXML
     private void loadView() {
-        //TODO: Display all data from competitors
+        TableColumn<CompetitorRow,Integer> playerNumCol = new TableColumn<CompetitorRow,Integer>("Player Number");
+        TableColumn<CompetitorRow,String> playerNameCol = new TableColumn<CompetitorRow,String>("Player Name");
+        TableColumn<CompetitorRow,Rank> playerLevelCol = new TableColumn<CompetitorRow,Rank>("Player Level");
+        TableColumn<CompetitorRow,int[]> scoresCol = new TableColumn<CompetitorRow,int[]>("Player Scores");
+        playerNumCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Integer>("playerNumber"));
+        playerNameCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("playerName"));
+        playerLevelCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Rank>("playerLevel"));
+        scoresCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,int[]>("scores"));
+        competitorTable.getColumns().add(playerNumCol);
+        competitorTable.getColumns().add(playerNameCol);
+        competitorTable.getColumns().add(playerLevelCol);
+        competitorTable.getColumns().add(scoresCol);
+        competitorTable.setItems(generateTable());
+        //TODO: Add favorite characters
     }
 
     private void loadPlayer(Competitor player) {
@@ -185,5 +204,21 @@ public class MainController implements Initializable {
             newScores[i] = Integer.parseInt(this.scores[i].getText());
         }
         player.setScores(newScores);
+    }
+
+    private  ObservableList<CompetitorRow> generateTable() {
+        ArrayList<CompetitorRow> list = new ArrayList<>();
+        for(Competitor player: this.competitors.getCompetitors()) {
+            if (player instanceof ValorantPlayer) {
+                list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores(), ((ValorantPlayer) player).getFavoriteAgent()));
+            }
+            else if (player instanceof R6Player) {
+                list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores(), ((R6Player) player).getFavoriteAttacker(), ((R6Player) player).getFavoriteDefender()));
+            }
+            else {
+                list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores()));
+            }
+        }
+        return FXCollections.observableArrayList(list);
     }
 }

@@ -87,6 +87,7 @@ public class MainController implements Initializable {
         Platform.runLater(() -> {
             this.scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
             loadCompetitors();
+            loadTable();
             loadEdit();
         });
 
@@ -128,8 +129,7 @@ public class MainController implements Initializable {
         favoriteAgent.setItems(FXCollections.observableList(Arrays.asList(ValorantAgent.values())));
     }
 
-    @FXML
-    private void loadView() {
+    private void loadTable() {
         TableColumn<CompetitorRow,Integer> playerNumCol = new TableColumn<CompetitorRow,Integer>("Player Number");
         TableColumn<CompetitorRow,String> playerNameCol = new TableColumn<CompetitorRow,String>("Player Name");
         TableColumn<CompetitorRow,Rank> playerLevelCol = new TableColumn<CompetitorRow,Rank>("Player Level");
@@ -142,6 +142,10 @@ public class MainController implements Initializable {
         competitorTable.getColumns().add(playerNameCol);
         competitorTable.getColumns().add(playerLevelCol);
         competitorTable.getColumns().add(scoresCol);
+    }
+
+    @FXML
+    private void loadView() {
         competitorTable.setItems(generateTable());
         //TODO: Add favorite characters
     }

@@ -39,9 +39,33 @@ public class MainController implements Initializable {
     @FXML
     TextField favoriteDefender;
 
+    @FXML
+    TextField scores0;
+    
+    @FXML
+    TextField scores1;
+    
+    @FXML
+    TextField scores2;
+    
+    @FXML
+    TextField scores3;
+    
+    @FXML
+    TextField scores4;
+    
+    @FXML
+    TextField scores5;
+
+    @FXML
+    TextField overallScore;
+    
+    TextField[] scores;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadCompetitors();
+        this.scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
         loadView();
     }    
 
@@ -67,7 +91,12 @@ public class MainController implements Initializable {
         this.playerNumber.setText(String.valueOf(player.getPlayerNumber()));
         this.playerName.setText(player.getPlayerName().getFullName());
         this.playerLevel.setText(player.getPlayerLevel().getRank());
+        loadFavoriteCharacters(player);
+        loadScores(player);
+        this.overallScore.setText(String.valueOf(player.getOverallScore()));
+    }
 
+    private void loadFavoriteCharacters(Competitor player) {
         if (player instanceof R6Player) {
             this.favoriteAttacker.setText(((R6Player) player).getFavoriteAttacker().getAttacker());
             this.favoriteDefender.setText(((R6Player) player).getFavoriteDefender().getDefender());
@@ -79,6 +108,12 @@ public class MainController implements Initializable {
             this.favoriteDefender.visibleProperty().set(false);
             this.favoriteCharacters.setText("Favorite Agent");
         }
+    }
 
+    private void loadScores(Competitor player) {
+        int[] playerScores = player.getScores();
+        for (int i = 0; i < playerScores.length; i++) {
+            this.scores[i].setText(String.valueOf(playerScores[i]));
+        }
     }
 }

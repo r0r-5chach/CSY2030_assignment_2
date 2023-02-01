@@ -1,10 +1,11 @@
-package com.r0r5chach;
+package com.r0r5chach.pages;
 
 import java.util.ArrayList;
-
+import com.r0r5chach.Competitor;
+import com.r0r5chach.CompetitorRow;
+import com.r0r5chach.Rank;
 import com.r0r5chach.r6.R6Player;
 import com.r0r5chach.valorant.ValorantPlayer;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;

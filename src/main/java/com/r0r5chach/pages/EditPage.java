@@ -1,5 +1,8 @@
-package com.r0r5chach;
+package com.r0r5chach.pages;
 
+import com.r0r5chach.Competitor;
+import com.r0r5chach.Name;
+import com.r0r5chach.Rank;
 import com.r0r5chach.r6.R6Attacker;
 import com.r0r5chach.r6.R6Defender;
 import com.r0r5chach.r6.R6Player;

@@ -137,7 +137,7 @@ public class MainController implements Initializable {
         playerNumCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Integer>("playerNumber"));
         playerNameCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("playerName"));
         playerLevelCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Rank>("playerLevel"));
-        scoresCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String("scores"));
+        scoresCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("scores"));
         competitorTable.getColumns().add(playerNumCol);
         competitorTable.getColumns().add(playerNameCol);
         competitorTable.getColumns().add(playerLevelCol);

@@ -5,7 +5,6 @@ import com.r0r5chach.r6.R6Defender;
 import com.r0r5chach.r6.R6Player;
 import com.r0r5chach.valorant.ValorantAgent;
 import com.r0r5chach.valorant.ValorantPlayer;
-
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;

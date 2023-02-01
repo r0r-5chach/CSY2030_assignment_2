@@ -81,7 +81,7 @@
                               <VBox prefHeight="0.0" prefWidth="291.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
                                     <ChoiceBox fx:id="favoriteAttacker" prefWidth="150.0" />
-                                    <ChoiceBox fx:id="favoriteAgent" prefWidth="150.0">
+                                    <ChoiceBox fx:id="favoriteAgent" prefWidth="150.0" visible="false">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>

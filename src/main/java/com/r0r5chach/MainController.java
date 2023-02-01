@@ -132,6 +132,8 @@ public class MainController implements Initializable {
         competitorTable.getColumns().add(new TableColumn<Competitor,String>("Player Name"));
         competitorTable.getColumns().add(new TableColumn<Competitor,Rank>("Player Rank"));
         competitorTable.getColumns().add(new TableColumn<Competitor,int[]>("Player Scores"));
+        //TODO: Add data to rows
+        //TODO: Add favorite characters
     }
 
     private void loadPlayer(Competitor player) {

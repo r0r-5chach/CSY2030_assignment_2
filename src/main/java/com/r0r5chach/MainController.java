@@ -37,62 +37,62 @@ public class MainController implements Initializable {
     private ArrayList<Integer> competitorIds;
 
     @FXML
-    ListView<Integer> competitorsList;
+    private ListView<Integer> competitorsList;
     
     @FXML
-    TextField playerNumber;
+    private TextField playerNumber;
 
     @FXML
-    TextField playerName;
+    private TextField playerName;
 
     @FXML
-    ChoiceBox<Rank> playerLevel;
+    private ChoiceBox<Rank> playerLevel;
 
     @FXML
-    Text favoriteCharacters;
+    private Text favoriteCharacters;
 
     @FXML
-    ChoiceBox<R6Attacker> favoriteAttacker;
+    private ChoiceBox<R6Attacker> favoriteAttacker;
 
     @FXML
-    ChoiceBox<ValorantAgent> favoriteAgent;
+    private ChoiceBox<ValorantAgent> favoriteAgent;
 
     @FXML
-    ChoiceBox<R6Defender> favoriteDefender;
+    private ChoiceBox<R6Defender> favoriteDefender;
 
     @FXML
-    TextField scores0;
+    private TextField scores0;
     
     @FXML
-    TextField scores1;
+    private TextField scores1;
     
     @FXML
-    TextField scores2;
+    private TextField scores2;
     
     @FXML
-    TextField scores3;
+    private TextField scores3;
     
     @FXML
-    TextField scores4;
+    private TextField scores4;
     
     @FXML
-    TextField scores5;
+    private TextField scores5;
 
     @FXML
-    TextField overallScore;
+    private TextField overallScore;
     
-    TextField[] scores;
+    private TextField[] scores;
 
-    TextField[] fields;
-
-    @FXML
-    Button updateButton;
+    private TextField[] fields;
 
     @FXML
-    TableView<CompetitorRow> competitorTable;
+    private Button updateButton;
 
     @FXML
-    Button filterButton;
+    private TableView<CompetitorRow> competitorTable;
+
+    @FXML
+    private Button filterButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -103,12 +103,12 @@ public abstract class Competitor {
     public double getOverallScore() {
         double output = 0;
         for (int score: getScores()) {
-            output += Math.log(score); //get the sum of the natural log of the scores
+            if (Math.log(score) != Double.NEGATIVE_INFINITY) {
+                output += Math.log(score); //get the sum of the natural log of the scores
+            }
         }
         output /= 1.93; //divide the sum by 1.93
-        if (output == Double.NEGATIVE_INFINITY) {
-            output = 0;
-        }
+        
         return Double.parseDouble(df.format(output)); //df.format() allows the scores to be formatted to 2 decimal places
     }
     /**

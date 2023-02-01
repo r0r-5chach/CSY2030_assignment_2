@@ -27,12 +27,8 @@ public class Manager extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Manager.class.getResource(fxml + ".fxml"));
         Parent root = fxmlLoader.load();
-        switch(fxml) {
-            case "main":
-            MainController controller = fxmlLoader.<MainController>getController();
-            controller.setCompetitors(createList());
-            break;
-        }
+        MainController controller = fxmlLoader.<MainController>getController();
+        controller.setCompetitors(createList());
         
         return root;
     }

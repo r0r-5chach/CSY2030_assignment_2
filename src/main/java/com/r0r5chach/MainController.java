@@ -11,12 +11,15 @@ import com.r0r5chach.r6.R6Player;
 import com.r0r5chach.valorant.ValorantAgent;
 import com.r0r5chach.valorant.ValorantPlayer;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -74,11 +77,17 @@ public class MainController implements Initializable {
     @FXML
     Button updateButton;
 
+    @FXML
+    TableView<Competitor> competitorTable;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadCompetitors();
-        this.scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
-        loadView();
+        Platform.runLater(() -> {
+            this.scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
+            loadCompetitors();
+            loadEdit();
+        });
+
     }
 
     public void setCompetitors(CompetitorList list) {
@@ -97,7 +106,7 @@ public class MainController implements Initializable {
         Competitor player = this.competitors.getCompetitors().get(playerIndex);
         updatePlayer(player);
         competitorIds.set(playerIndex, player.getPlayerNumber());
-        loadView();
+        loadEdit();
         loadPlayer(player);
     }
 
@@ -108,12 +117,21 @@ public class MainController implements Initializable {
         }
     }
 
-    private void loadView() {
-        competitorsList.setItems(FXCollections.observableArrayList(this.competitorIds));
+    @FXML
+    private void loadEdit() {
+        competitorsList.setItems(FXCollections.observableList(this.competitorIds));
         playerLevel.setItems(FXCollections.observableList(Arrays.asList(Rank.values())));
         favoriteAttacker.setItems(FXCollections.observableList(Arrays.asList(R6Attacker.values())));
         favoriteDefender.setItems(FXCollections.observableList(Arrays.asList(R6Defender.values())));
         favoriteAgent.setItems(FXCollections.observableList(Arrays.asList(ValorantAgent.values())));
+    }
+
+    @FXML
+    private void loadView() {
+        competitorTable.getColumns().add(new TableColumn<Competitor,Integer>("Player Number"));
+        competitorTable.getColumns().add(new TableColumn<Competitor,String>("Player Name"));
+        competitorTable.getColumns().add(new TableColumn<Competitor,Rank>("Player Rank"));
+        competitorTable.getColumns().add(new TableColumn<Competitor,int[]>("Player Scores"));
     }
 
     private void loadPlayer(Competitor player) {

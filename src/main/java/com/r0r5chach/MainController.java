@@ -2,14 +2,20 @@ package com.r0r5chach;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import com.r0r5chach.r6.R6Attacker;
+import com.r0r5chach.r6.R6Defender;
 import com.r0r5chach.r6.R6Player;
+import com.r0r5chach.valorant.ValorantAgent;
 import com.r0r5chach.valorant.ValorantPlayer;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -28,16 +34,19 @@ public class MainController implements Initializable {
     TextField playerName;
 
     @FXML
-    TextField playerLevel;
+    ChoiceBox<Rank> playerLevel;
 
     @FXML
     Text favoriteCharacters;
 
     @FXML
-    TextField favoriteAttacker;
+    ChoiceBox<R6Attacker> favoriteAttacker;
 
     @FXML
-    TextField favoriteDefender;
+    ChoiceBox<ValorantAgent> favoriteAgent;
+
+    @FXML
+    ChoiceBox<R6Defender> favoriteDefender;
 
     @FXML
     TextField scores0;
@@ -62,12 +71,31 @@ public class MainController implements Initializable {
     
     TextField[] scores;
 
+    @FXML
+    Button updateButton;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadCompetitors();
         this.scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
         loadView();
-    }    
+    }
+    
+    @FXML
+    private void getCompetitor() {
+        Competitor player = this.competitors.getCompetitors().get(this.competitorIds.indexOf(this.competitorsList.getSelectionModel().getSelectedItem()));
+        loadPlayer(player);
+    }
+
+    @FXML
+    private void updateCompetitor() {
+        int playerIndex = this.competitorIds.indexOf(this.competitorsList.getSelectionModel().getSelectedItem());
+        Competitor player = this.competitors.getCompetitors().get(playerIndex);
+        updatePlayer(player);
+        competitorIds.set(playerIndex, player.getPlayerNumber());
+        loadView();
+        loadPlayer(player);
+    }
 
     private void loadCompetitors(){
         this.competitors = new Manager().getCompetitors();
@@ -79,18 +107,16 @@ public class MainController implements Initializable {
 
     private void loadView() {
         competitorsList.setItems(FXCollections.observableArrayList(this.competitorIds));
-    }
-
-    @FXML
-    public void getCompetitor() {
-        Competitor player = this.competitors.getCompetitors().get(this.competitorIds.indexOf(this.competitorsList.getSelectionModel().getSelectedItem()));
-        loadPlayer(player);
+        playerLevel.setItems(FXCollections.observableList(Arrays.asList(Rank.values())));
+        favoriteAttacker.setItems(FXCollections.observableList(Arrays.asList(R6Attacker.values())));
+        favoriteDefender.setItems(FXCollections.observableList(Arrays.asList(R6Defender.values())));
+        favoriteAgent.setItems(FXCollections.observableList(Arrays.asList(ValorantAgent.values())));
     }
 
     private void loadPlayer(Competitor player) {
         this.playerNumber.setText(String.valueOf(player.getPlayerNumber()));
         this.playerName.setText(player.getPlayerName().getFullName());
-        this.playerLevel.setText(player.getPlayerLevel().getRank());
+        this.playerLevel.getSelectionModel().select(player.getPlayerLevel());;
         loadFavoriteCharacters(player);
         loadScores(player);
         this.overallScore.setText(String.valueOf(player.getOverallScore()));
@@ -98,13 +124,17 @@ public class MainController implements Initializable {
 
     private void loadFavoriteCharacters(Competitor player) {
         if (player instanceof R6Player) {
-            this.favoriteAttacker.setText(((R6Player) player).getFavoriteAttacker().getAttacker());
-            this.favoriteDefender.setText(((R6Player) player).getFavoriteDefender().getDefender());
+            this.favoriteAttacker.getSelectionModel().select(((R6Player) player).getFavoriteAttacker());
+            this.favoriteDefender.getSelectionModel().select((((R6Player) player).getFavoriteDefender()));
+            this.favoriteAgent.visibleProperty().set(false);
+            this.favoriteAttacker.visibleProperty().set(true);
             this.favoriteDefender.visibleProperty().set(true);
             this.favoriteCharacters.setText("Favorite Operators");
         }
         else if (player instanceof ValorantPlayer) {
-            this.favoriteAttacker.setText(((ValorantPlayer) player).getFavoriteAgent().getAgent());
+            this.favoriteAgent.getSelectionModel().select(((ValorantPlayer) player).getFavoriteAgent());
+            this.favoriteAgent.visibleProperty().set(true);
+            this.favoriteAttacker.visibleProperty().set(false);
             this.favoriteDefender.visibleProperty().set(false);
             this.favoriteCharacters.setText("Favorite Agent");
         }
@@ -115,5 +145,31 @@ public class MainController implements Initializable {
         for (int i = 0; i < playerScores.length; i++) {
             this.scores[i].setText(String.valueOf(playerScores[i]));
         }
+    }
+
+    private void updatePlayer(Competitor player) {
+        player.setPlayerNumber(Integer.parseInt(this.playerNumber.getText()));
+        player.setPlayerName(new Name(this.playerName.getText()));
+        player.setPlayerLevel(this.playerLevel.getValue());
+        updateFavoriteCharacters(player);
+        updateScores(player);
+    }
+
+    private void updateFavoriteCharacters(Competitor player) {
+        if (player instanceof R6Player) {
+            ((R6Player) player).setFavoriteAttacker(this.favoriteAttacker.getValue());
+            ((R6Player) player).setFavoriteDefender(this.favoriteDefender.getValue());
+        }
+        else if (player instanceof ValorantPlayer) {
+            ((ValorantPlayer) player).setFavoriteAgent(this.favoriteAgent.getValue());
+        }
+    }
+
+    private void updateScores(Competitor player) {
+        int[] newScores = new int[6];
+        for (int i = 0; i < newScores.length; i++) {
+            newScores[i] = Integer.parseInt(this.scores[i].getText());
+        }
+        player.setScores(newScores);
     }
 }

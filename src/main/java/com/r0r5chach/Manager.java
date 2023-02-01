@@ -1,34 +1,48 @@
 package com.r0r5chach;
 import java.io.File;
 
+import javafx.application.Application;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 import static com.r0r5chach.CompetitorList.createErrorLog;
 
-public class Manager {
+public class Manager extends Application {
 
-    private CompetitorList competitors;
+    private static Scene scene;
 
-
-    public Manager() {
-        init();
+    @Override
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("main"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public CompetitorList getCompetitors() {
-        return competitors;
+    public static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
     }
 
-
-    public File getReport() {
-        File report;
-        try {
-            report = competitors.createReportFile();
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Manager.class.getResource(fxml + ".fxml"));
+        Parent root = fxmlLoader.load();
+        switch(fxml) {
+            case "main":
+            MainController controller = fxmlLoader.<MainController>getController();
+            controller.setCompetitors(createList());
+            break;
         }
-        catch (Exception e) {
-                report = new File(createErrorLog(e, "src/main/resource/com/r0r5chach/log.txt"));
-        }
-        return report;
+        
+        return root;
     }
 
-    private void init() {
+    public static void main(String[] args) {
+        launch();
+    }
+
+    private static CompetitorList createList() {
+        CompetitorList competitors = null;
         File valorantPlayers = new File("src/main/resources/com/r0r5chach/valorantPlayers.txt");
         File r6Players = new File("src/main/resources/com/r0r5chach/r6Players.txt");
         try {
@@ -39,5 +53,6 @@ public class Manager {
         catch (Exception e) {
             createErrorLog(e, "src/main/resources/log.txt");
         }
+        return competitors;
     }
 }

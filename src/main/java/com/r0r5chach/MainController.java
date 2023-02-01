@@ -80,6 +80,10 @@ public class MainController implements Initializable {
         this.scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
         loadView();
     }
+
+    public void setCompetitors(CompetitorList list) {
+        this.competitors = list;
+    }
     
     @FXML
     private void getCompetitor() {
@@ -98,7 +102,6 @@ public class MainController implements Initializable {
     }
 
     private void loadCompetitors(){
-        this.competitors = new Manager().getCompetitors();
         this.competitorIds = new ArrayList<Integer>();
         for (Competitor player : this.competitors.getCompetitors()) {
             this.competitorIds.add(player.getPlayerNumber()); 

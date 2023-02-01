@@ -7,22 +7,17 @@ import java.util.ResourceBundle;
 
 import com.r0r5chach.r6.R6Attacker;
 import com.r0r5chach.r6.R6Defender;
-import com.r0r5chach.r6.R6Player;
 import com.r0r5chach.valorant.ValorantAgent;
-import com.r0r5chach.valorant.ValorantPlayer;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 public class MainController implements Initializable {
@@ -76,18 +71,24 @@ public class MainController implements Initializable {
     
     TextField[] scores;
 
+    TextField[] fields;
+
     @FXML
     Button updateButton;
 
     @FXML
     TableView<CompetitorRow> competitorTable;
 
+    @FXML
+    Button filterButton;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
-            this.scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
+            scores = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
+            fields = new TextField[]{playerNumber, playerName, overallScore};
             loadCompetitors();
-            loadTable();
+            ViewPage.generateTable(competitorTable);
             loadEdit();
         });
 
@@ -99,18 +100,24 @@ public class MainController implements Initializable {
     
     @FXML
     private void getCompetitor() {
-        Competitor player = this.competitors.getCompetitors().get(this.competitorIds.indexOf(this.competitorsList.getSelectionModel().getSelectedItem()));
-        loadPlayer(player);
+        Competitor player = competitors.getCompetitors().get(competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem()));
+        EditPage.loadPlayer(player,fields, playerLevel);
+        EditPage.loadFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent, favoriteCharacters);
+        EditPage.loadScores(player, scores);
     }
 
     @FXML
     private void updateCompetitor() {
-        int playerIndex = this.competitorIds.indexOf(this.competitorsList.getSelectionModel().getSelectedItem());
-        Competitor player = this.competitors.getCompetitors().get(playerIndex);
-        updatePlayer(player);
+        int playerIndex = competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem());
+        Competitor player = competitors.getCompetitors().get(playerIndex);
+        EditPage.updatePlayer(player, fields, playerLevel);
+        EditPage.updateFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent);
+        EditPage.updateScores(player, scores);
         competitorIds.set(playerIndex, player.getPlayerNumber());
         loadEdit();
-        loadPlayer(player);
+        EditPage.loadPlayer(player, fields, playerLevel);
+        EditPage.loadFavoriteCharacters(player, favoriteAttacker, favoriteDefender, favoriteAgent, favoriteCharacters);
+        EditPage.loadScores(player, scores);
     }
 
     private void loadCompetitors(){
@@ -129,107 +136,8 @@ public class MainController implements Initializable {
         favoriteAgent.setItems(FXCollections.observableList(Arrays.asList(ValorantAgent.values())));
     }
 
-    private void loadTable() {
-        TableColumn<CompetitorRow,Integer> playerNumCol = new TableColumn<CompetitorRow,Integer>("Player Number");
-        TableColumn<CompetitorRow,String> playerNameCol = new TableColumn<CompetitorRow,String>("Player Name");
-        TableColumn<CompetitorRow,Rank> playerLevelCol = new TableColumn<CompetitorRow,Rank>("Player Level");
-        TableColumn<CompetitorRow,String> scoresCol = new TableColumn<CompetitorRow,String>("Player Scores");
-        TableColumn<CompetitorRow,String> favoriteCharsCol = new TableColumn<CompetitorRow,String>("Favorite Characters");
-        TableColumn<CompetitorRow,String> favoriteAgentCol = new TableColumn<CompetitorRow,String>("Agent");
-        TableColumn<CompetitorRow,String> favoriteAttackerCol = new TableColumn<CompetitorRow,String>("Attacker");
-        TableColumn<CompetitorRow,String> favoriteDefenderCol = new TableColumn<CompetitorRow,String>("Defender");
-        playerNumCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Integer>("playerNumber"));
-        playerNameCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("playerName"));
-        playerLevelCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Rank>("playerLevel"));
-        scoresCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("scores"));
-        favoriteAgentCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteAgent"));
-        favoriteAttackerCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteAttacker"));
-        favoriteDefenderCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteDefender"));
-        competitorTable.getColumns().add(playerNumCol);
-        competitorTable.getColumns().add(playerNameCol);
-        competitorTable.getColumns().add(playerLevelCol);
-        competitorTable.getColumns().add(scoresCol);
-        favoriteCharsCol.getColumns().add(favoriteAgentCol);
-        favoriteCharsCol.getColumns().add(favoriteAttackerCol);
-        favoriteCharsCol.getColumns().add(favoriteDefenderCol);
-        competitorTable.getColumns().add(favoriteCharsCol);
-    }
-
     @FXML
     private void loadView() {
-        competitorTable.setItems(generateTable());
-    }
-
-    private void loadPlayer(Competitor player) {
-        this.playerNumber.setText(String.valueOf(player.getPlayerNumber()));
-        this.playerName.setText(player.getPlayerName().getFullName());
-        this.playerLevel.getSelectionModel().select(player.getPlayerLevel());;
-        loadFavoriteCharacters(player);
-        loadScores(player);
-        this.overallScore.setText(String.valueOf(player.getOverallScore()));
-    }
-
-    private void loadFavoriteCharacters(Competitor player) {
-        if (player instanceof R6Player) {
-            this.favoriteAttacker.getSelectionModel().select(((R6Player) player).getFavoriteAttacker());
-            this.favoriteDefender.getSelectionModel().select((((R6Player) player).getFavoriteDefender()));
-            this.favoriteAgent.visibleProperty().set(false);
-            this.favoriteAttacker.visibleProperty().set(true);
-            this.favoriteDefender.visibleProperty().set(true);
-            this.favoriteCharacters.setText("Favorite Operators");
-        }
-        else if (player instanceof ValorantPlayer) {
-            this.favoriteAgent.getSelectionModel().select(((ValorantPlayer) player).getFavoriteAgent());
-            this.favoriteAgent.visibleProperty().set(true);
-            this.favoriteAttacker.visibleProperty().set(false);
-            this.favoriteDefender.visibleProperty().set(false);
-            this.favoriteCharacters.setText("Favorite Agent");
-        }
-    }
-
-    private void loadScores(Competitor player) {
-        int[] playerScores = player.getScores();
-        for (int i = 0; i < playerScores.length; i++) {
-            this.scores[i].setText(String.valueOf(playerScores[i]));
-        }
-    }
-
-    private void updatePlayer(Competitor player) {
-        player.setPlayerNumber(Integer.parseInt(this.playerNumber.getText()));
-        player.setPlayerName(new Name(this.playerName.getText()));
-        player.setPlayerLevel(this.playerLevel.getValue());
-        updateFavoriteCharacters(player);
-        updateScores(player);
-    }
-
-    private void updateFavoriteCharacters(Competitor player) {
-        if (player instanceof R6Player) {
-            ((R6Player) player).setFavoriteAttacker(this.favoriteAttacker.getValue());
-            ((R6Player) player).setFavoriteDefender(this.favoriteDefender.getValue());
-        }
-        else if (player instanceof ValorantPlayer) {
-            ((ValorantPlayer) player).setFavoriteAgent(this.favoriteAgent.getValue());
-        }
-    }
-
-    private void updateScores(Competitor player) {
-        int[] newScores = new int[6];
-        for (int i = 0; i < newScores.length; i++) {
-            newScores[i] = Integer.parseInt(this.scores[i].getText());
-        }
-        player.setScores(newScores);
-    }
-
-    private  ObservableList<CompetitorRow> generateTable() {
-        ArrayList<CompetitorRow> list = new ArrayList<>();
-        for(Competitor player: this.competitors.getCompetitors()) {
-            if (player instanceof ValorantPlayer) {
-                list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores(), ((ValorantPlayer) player).getFavoriteAgent()));
-            }
-            if (player instanceof R6Player) {
-                list.add(new CompetitorRow(player.getPlayerNumber(), player.getPlayerName(), player.getPlayerLevel(), player.getScores(), ((R6Player) player).getFavoriteAttacker(), ((R6Player) player).getFavoriteDefender()));
-            }
-        }
-        return FXCollections.observableArrayList(list);
+        competitorTable.setItems(ViewPage.loadTable(this.competitors.getCompetitors()));
     }
 }

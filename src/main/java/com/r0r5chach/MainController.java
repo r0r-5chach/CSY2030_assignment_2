@@ -134,6 +134,7 @@ public class MainController implements Initializable {
         competitorTable.getColumns().add(new TableColumn<Competitor,int[]>("Player Scores"));
         //TODO: Add data to rows
         //TODO: Add favorite characters
+        //FIXME: Change from TableView to different model type (maybe list view)
     }
 
     private void loadPlayer(Competitor player) {

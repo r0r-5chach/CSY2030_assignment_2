@@ -106,8 +106,8 @@ public class MainController implements Initializable {
 
     }
 
-    public void setCompetitors(CompetitorList list) {
-        this.competitors = list;
+    public void setCompetitors(CompetitorList competitors) {
+        this.competitors = competitors;
     }
     
     @FXML
@@ -133,15 +133,15 @@ public class MainController implements Initializable {
     }
 
     private void loadCompetitors(){
-        this.competitorIds = new ArrayList<Integer>();
-        for (Competitor player : this.competitors.getCompetitors()) {
-            this.competitorIds.add(player.getPlayerNumber()); 
+        competitorIds = new ArrayList<Integer>();
+        for (Competitor player : competitors.getCompetitors()) {
+            competitorIds.add(player.getPlayerNumber()); 
         }
     }
 
     @FXML
     private void loadEdit() {
-        competitorsList.setItems(FXCollections.observableList(this.competitorIds));
+        competitorsList.setItems(FXCollections.observableList(competitorIds));
         playerLevel.setItems(FXCollections.observableList(Arrays.asList(Rank.values())));
         favoriteAttacker.setItems(FXCollections.observableList(Arrays.asList(R6Attacker.values())));
         favoriteDefender.setItems(FXCollections.observableList(Arrays.asList(R6Defender.values())));
@@ -150,6 +150,6 @@ public class MainController implements Initializable {
 
     @FXML
     private void loadView() {
-        competitorTable.setItems(loadTable(this.competitors.getCompetitors()));
+        competitorTable.setItems(loadTable(competitors.getCompetitors()));
     }
 }

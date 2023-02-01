@@ -31,10 +31,6 @@ public class CompetitorList {
         reportContents = reportTemplate();
     }
 
-    public String getReportContents() {
-        return reportContents;
-    }
-
     public ArrayList<Competitor> getCompetitors() {
         return competitors;
     }

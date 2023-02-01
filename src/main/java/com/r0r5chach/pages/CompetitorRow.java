@@ -26,9 +26,9 @@ public class CompetitorRow {
         this.playerName = new SimpleStringProperty(playerName.getFullName());
         this.playerLevel = new SimpleObjectProperty<Rank>(playerLevel);
         this.scores = new SimpleStringProperty(Arrays.toString(scores).replace("[", "").replace("]", ""));
-        this.favoriteAgent = new SimpleStringProperty("N/A");
-        this.favoriteAttacker = new SimpleStringProperty("N/A");
-        this.favoriteDefender = new SimpleStringProperty("N/A");
+        favoriteAgent = new SimpleStringProperty("N/A");
+        favoriteAttacker = new SimpleStringProperty("N/A");
+        favoriteDefender = new SimpleStringProperty("N/A");
     }
 
     public CompetitorRow(int playerNumber, Name playerName, Rank playerLevel, int[] scores, ValorantAgent favoriteAgent) {
@@ -37,8 +37,8 @@ public class CompetitorRow {
         this.scores = new SimpleStringProperty(Arrays.toString(scores).replace("[", "").replace("]", ""));
         this.playerLevel = new SimpleObjectProperty<Rank>(playerLevel);
         this.favoriteAgent = new SimpleStringProperty(favoriteAgent.getAgent());
-        this.favoriteAttacker = new SimpleStringProperty("N/A");
-        this.favoriteDefender = new SimpleStringProperty("N/A");
+        favoriteAttacker = new SimpleStringProperty("N/A");
+        favoriteDefender = new SimpleStringProperty("N/A");
     }
 
     public CompetitorRow(int playerNumber, Name playerName, Rank playerLevel, int[] scores, R6Attacker favoriteAttacker, R6Defender favoriteDefender) {
@@ -46,52 +46,30 @@ public class CompetitorRow {
         this.playerNumber = new SimpleIntegerProperty(playerNumber);
         this.scores = new SimpleStringProperty(Arrays.toString(scores).replace("[", "").replace("]", ""));
         this.playerLevel = new SimpleObjectProperty<Rank>(playerLevel);
-        this.favoriteAgent = new SimpleStringProperty("N/A");
+        favoriteAgent = new SimpleStringProperty("N/A");
         this.favoriteAttacker = new SimpleStringProperty(favoriteAttacker.getAttacker());
         this.favoriteDefender = new SimpleStringProperty(favoriteDefender.getDefender());
     }
 
-    public void setPlayerNumber(int newValue) {
-        this.playerNumber.set(newValue);
-    }
-    public void setPlayerName(String newValue) {
-        this.playerName.set(newValue);
-    }
-    public void setPlayerLevel(Rank newValue) {
-        this.playerLevel.set(newValue);
-    }
-    public void setScores(String newValue) {
-        this.scores.set(newValue);
-    }
-    public void setFavoriteAgent(String newValue) {
-        this.favoriteAgent.set(newValue);
-    }
-    public void setFavoriteAttacker(String newValue) {
-        this.favoriteAttacker.set(newValue);
-    }
-    public void setFavoriteDefender(String newValue) {
-        this.favoriteDefender.set(newValue);
-    }    
-
     public int getPlayerNumber() {
-        return this.playerNumber.get();
+        return playerNumber.get();
     }
     public String getPlayerName() {
-        return this.playerName.get();
+        return playerName.get();
     }
     public Rank getPlayerLevel() {
-        return this.playerLevel.get();
+        return playerLevel.get();
     }
     public String getScores() {
-        return this.scores.get();
+        return scores.get();
     }
     public String getFavoriteAgent() {
-        return this.favoriteAgent.get();
+        return favoriteAgent.get();
     }
     public String getFavoriteAttacker() {
-        return this.favoriteAttacker.get();
+        return favoriteAttacker.get();
     }
     public String getFavoriteDefender() {
-        return this.favoriteDefender.get();
+        return favoriteDefender.get();
     }    
 }

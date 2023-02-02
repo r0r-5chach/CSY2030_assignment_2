@@ -1,4 +1,4 @@
-package com.r0r5chach.pages;
+package com.r0r5chach;
 
 import java.util.Arrays;
 

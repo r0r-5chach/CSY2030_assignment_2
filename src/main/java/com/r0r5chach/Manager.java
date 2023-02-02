@@ -3,8 +3,12 @@ import java.io.File;
 
 import javafx.application.Application;
 import java.io.IOException;
+
+import com.r0r5chach.controllers.MainController;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import static com.r0r5chach.CompetitorList.createErrorLog;
@@ -12,12 +16,15 @@ import static com.r0r5chach.CompetitorList.createErrorLog;
 public class Manager extends Application {
 
     private static Scene scene;
+    private static Stage stage;
+    private static Popup filters;
 
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("main"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+        Manager.stage = stage;
+        Manager.stage.setScene(scene);
+        Manager.stage.show();
     }
 
     @Override
@@ -56,4 +63,16 @@ public class Manager extends Application {
         }
         return competitors;
     }
+
+    public static void filtersOpen() throws IOException {
+        filters = new Popup();
+        FXMLLoader loader = new FXMLLoader(Manager.class.getResource("pages/filters.fxml"));
+        filters.getContent().add((Parent)loader.load());
+        filters.show(Manager.stage);
+    }
+
+    public static void filtersClose() {
+        filters.hide();
+    }
+
 }

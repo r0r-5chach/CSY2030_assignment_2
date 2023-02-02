@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 import com.r0r5chach.competitor.Competitor;
 import com.r0r5chach.competitor.Name;
 import com.r0r5chach.competitor.Rank;

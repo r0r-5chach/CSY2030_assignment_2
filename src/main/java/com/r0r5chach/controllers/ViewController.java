@@ -2,11 +2,11 @@ package com.r0r5chach.controllers;
 
 import java.util.ArrayList;
 
+import com.r0r5chach.CompetitorRow;
 import com.r0r5chach.competitor.Competitor;
 import com.r0r5chach.competitor.Rank;
 import com.r0r5chach.competitor.r6.R6Player;
 import com.r0r5chach.competitor.valorant.ValorantPlayer;
-import com.r0r5chach.pages.CompetitorRow;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

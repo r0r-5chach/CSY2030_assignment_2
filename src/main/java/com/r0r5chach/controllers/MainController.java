@@ -1,17 +1,19 @@
-package com.r0r5chach;
+package com.r0r5chach.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import com.r0r5chach.CompetitorList;
+import com.r0r5chach.Manager;
 import com.r0r5chach.competitor.Competitor;
 import com.r0r5chach.competitor.Rank;
 import com.r0r5chach.competitor.r6.R6Attacker;
 import com.r0r5chach.competitor.r6.R6Defender;
 import com.r0r5chach.competitor.valorant.ValorantAgent;
 import com.r0r5chach.pages.CompetitorRow;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -23,18 +25,20 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import static com.r0r5chach.pages.EditPage.loadPlayer;
-import static com.r0r5chach.pages.EditPage.loadFavoriteCharacters;
-import static com.r0r5chach.pages.EditPage.loadScores;
-import static com.r0r5chach.pages.EditPage.updatePlayer;
-import static com.r0r5chach.pages.EditPage.updateFavoriteCharacters;
-import static com.r0r5chach.pages.EditPage.updateScores;
-import static com.r0r5chach.pages.ViewPage.generateTable;
-import static com.r0r5chach.pages.ViewPage.loadTable;
+import static com.r0r5chach.controllers.EditController.loadFavoriteCharacters;
+import static com.r0r5chach.controllers.EditController.loadPlayer;
+import static com.r0r5chach.controllers.EditController.loadScores;
+import static com.r0r5chach.controllers.EditController.updateFavoriteCharacters;
+import static com.r0r5chach.controllers.EditController.updatePlayer;
+import static com.r0r5chach.controllers.EditController.updateScores;
+import static com.r0r5chach.controllers.ViewController.generateTable;
+import static com.r0r5chach.controllers.ViewController.loadTable;
 
 public class MainController implements Initializable {
     private CompetitorList competitors;
     private ArrayList<Integer> competitorIds;
+    private TextField[] scores;
+    private TextField[] fields;
 
     @FXML
     private ListView<Integer> competitorsList;
@@ -80,19 +84,12 @@ public class MainController implements Initializable {
 
     @FXML
     private TextField overallScore;
-    
-    private TextField[] scores;
-
-    private TextField[] fields;
 
     @FXML
     private Button updateButton;
 
     @FXML
     private TableView<CompetitorRow> competitorTable;
-
-    @FXML
-    private Button filterButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -151,5 +148,10 @@ public class MainController implements Initializable {
     @FXML
     private void loadView() {
         competitorTable.setItems(loadTable(competitors.getCompetitors()));
+    }
+
+    @FXML
+    private void filterPress() throws IOException {
+        Manager.filtersOpen();
     }
 }

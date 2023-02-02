@@ -1,4 +1,4 @@
-package com.r0r5chach.pages;
+package com.r0r5chach.controllers;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import com.r0r5chach.competitor.Competitor;
 import com.r0r5chach.competitor.Rank;
 import com.r0r5chach.competitor.r6.R6Player;
 import com.r0r5chach.competitor.valorant.ValorantPlayer;
+import com.r0r5chach.pages.CompetitorRow;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ViewPage {
+public class ViewController {
 
     public static void generateTable(TableView<CompetitorRow> table) {
         TableColumn<CompetitorRow,Integer> playerNumCol = new TableColumn<CompetitorRow,Integer>("Player Number");

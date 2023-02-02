@@ -1,4 +1,4 @@
-package com.r0r5chach.pages;
+package com.r0r5chach.controllers;
 
 import com.r0r5chach.competitor.Competitor;
 import com.r0r5chach.competitor.Name;
@@ -13,7 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class EditPage {
+public class EditController {
     public static void loadPlayer(Competitor player, TextField[] textFields, ChoiceBox<Rank> level) {
         textFields[0].setText(String.valueOf(player.getPlayerNumber()));
         textFields[1].setText(player.getPlayerName().getFullName());

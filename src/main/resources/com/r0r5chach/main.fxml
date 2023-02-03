@@ -9,15 +9,15 @@
    <children>
       <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab onSelectionChanged="#getTab" text="Edit">
-               <content>
-                  <AnchorPane fx:id="editTab" />
-               </content></Tab>
             <Tab onSelectionChanged="#getTab" text="View">
               <content>
                 <AnchorPane fx:id="viewTab" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
               </content>
             </Tab>
+          <Tab onSelectionChanged="#getTab" text="Edit">
+               <content>
+                  <AnchorPane fx:id="editTab" />
+               </content></Tab>
             <Tab onSelectionChanged="#getTab" text="Report">
               <content>
                 <AnchorPane fx:id="reportTab" />

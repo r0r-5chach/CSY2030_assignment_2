@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
@@ -99,11 +98,6 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </RadioButton>
-            <Button mnemonicParsing="false" onAction="#filterSave" text="Save" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
-               <GridPane.margin>
-                  <Insets right="15.0" />
-               </GridPane.margin>
-            </Button>
          </children>
       </GridPane>
    </children>

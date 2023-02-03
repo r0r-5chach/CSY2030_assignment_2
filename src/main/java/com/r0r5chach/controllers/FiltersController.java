@@ -1,6 +1,5 @@
 package com.r0r5chach.controllers;
 
-import com.r0r5chach.Manager;
 import com.r0r5chach.competitor.Rank;
 import com.r0r5chach.competitor.valorant.ValorantAgent;
 
@@ -27,9 +26,4 @@ public class FiltersController {
 
     @FXML
     ChoiceBox<ValorantAgent> agentFilter;
-
-    @FXML
-    private void filterSave() {
-        Manager.filtersClose();
-    }
 }

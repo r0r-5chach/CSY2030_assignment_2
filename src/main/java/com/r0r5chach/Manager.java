@@ -4,11 +4,13 @@ import java.io.File;
 import javafx.application.Application;
 import java.io.IOException;
 
+import com.r0r5chach.controllers.Controller;
+import com.r0r5chach.controllers.EditController;
 import com.r0r5chach.controllers.MainController;
+import com.r0r5chach.controllers.ViewController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import static com.r0r5chach.CompetitorList.createErrorLog;
@@ -16,11 +18,12 @@ import static com.r0r5chach.CompetitorList.createErrorLog;
 public class Manager extends Application {
 
     private static Scene scene;
-    private static Stage stage;
-    private static Popup filters;
+    public static Stage stage;
+    private static CompetitorList competitors;
 
     @Override
     public void start(Stage stage) throws IOException {
+        competitors = createList();
         scene = new Scene(loadFXML("main"), 640, 480);
         Manager.stage = stage;
         Manager.stage.setScene(scene);
@@ -36,11 +39,25 @@ public class Manager extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Manager.class.getResource(fxml + ".fxml"));
         Parent root = fxmlLoader.load();
-        MainController controller = fxmlLoader.<MainController>getController();
-        controller.setCompetitors(createList());
+        Controller controller;
+        switch(fxml) {
+            case "main":
+                controller = fxmlLoader.<MainController>getController();
+                controller.setCompetitors(competitors);
+                break;
+            case "pages/edit":
+                controller = fxmlLoader.<EditController>getController();
+                controller.setCompetitors(competitors);
+                break;
+            case "pages/view":
+                controller = fxmlLoader.<ViewController>getController();
+                controller.setCompetitors(competitors);
+                break;
+        }
+        
         
         return root;
     }
@@ -63,16 +80,4 @@ public class Manager extends Application {
         }
         return competitors;
     }
-
-    public static void filtersOpen() throws IOException {
-        filters = new Popup();
-        FXMLLoader loader = new FXMLLoader(Manager.class.getResource("pages/filters.fxml"));
-        filters.getContent().add((Parent)loader.load());
-        filters.show(Manager.stage);
-    }
-
-    public static void filtersClose() {
-        filters.hide();
-    }
-
 }

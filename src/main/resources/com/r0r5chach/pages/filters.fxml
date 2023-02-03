@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -69,33 +70,39 @@
                   <Insets right="15.0" />
                </GridPane.margin>
             </Text>
-            <TextField fx:id="numberFilter" GridPane.columnIndex="1">
+            <TextField fx:id="numberFilter" onKeyReleased="#setFilters" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="150.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="nameFilter" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="nameFilter" onKeyReleased="#setFilters" onMouseExited="#setFilters" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="150.0" />
                </GridPane.margin>
             </TextField>
-            <ChoiceBox fx:id="levelFilter" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="agentFilter" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ChoiceBox fx:id="attackerFilter" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ChoiceBox fx:id="defenderFilter" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="scoreFilter" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ChoiceBox fx:id="levelFilter" onMouseExited="#setFilters" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="agentFilter" onMouseExited="#setFilters" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="attackerFilter" onMouseExited="#setFilters" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ChoiceBox fx:id="defenderFilter" onMouseExited="#setFilters" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="scoreFilter" onKeyReleased="#setFilters" onMouseExited="#setFilters" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="150.0" />
                </GridPane.margin>
             </TextField>
-            <RadioButton mnemonicParsing="false" text="R6" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <RadioButton mnemonicParsing="false" onMouseExited="#setFilters" text="R6" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <toggleGroup>
                   <ToggleGroup fx:id="typeFilter" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Valorant" toggleGroup="$typeFilter" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <RadioButton mnemonicParsing="false" onMouseExited="#setFilters" text="Valorant" toggleGroup="$typeFilter" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="50.0" />
+               </GridPane.margin>
+            </RadioButton>
+            <TextArea fx:id="filterBox" cacheShape="false" centerShape="false" disable="true" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" scaleShape="false" visible="false" GridPane.rowIndex="5" />
+            <RadioButton cacheShape="false" centerShape="false" focusTraversable="false" mnemonicParsing="false" scaleShape="false" selected="true" text="NONE" toggleGroup="$typeFilter" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="150.0" />
                </GridPane.margin>
             </RadioButton>
          </children>

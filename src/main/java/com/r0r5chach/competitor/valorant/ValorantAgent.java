@@ -7,6 +7,7 @@ import java.util.Locale;
  * @author r0r5chach
  */
 public enum ValorantAgent {
+    NONE,
     BRIMSTONE,
     VIPER,
     OMEN,

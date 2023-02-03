@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
+import static com.r0r5chach.controllers.FiltersController.getFilters;
 import com.r0r5chach.CompetitorRow;
 import com.r0r5chach.Manager;
 import com.r0r5chach.competitor.Competitor;
@@ -15,19 +17,20 @@ import com.r0r5chach.competitor.valorant.ValorantPlayer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Popup;
 
 public class ViewController extends Controller {
     @FXML
     private TableView<CompetitorRow> competitorTable;
-
-    @FXML Button filterButton;
 
     private TableColumn<CompetitorRow,Integer> playerNumCol;
     private TableColumn<CompetitorRow,String> playerNameCol;
@@ -38,23 +41,75 @@ public class ViewController extends Controller {
     private TableColumn<CompetitorRow,String> favoriteAttackerCol;
     private TableColumn<CompetitorRow,String> favoriteDefenderCol;
 
-    private Popup filters;
+    @FXML 
+    private Button filterButton;
+    private Popup filterPopup;
+    private String[] filters;
+
+    @FXML
+    private TextArea filterBox;
 
     @Override
     public void initialize(URL ul, ResourceBundle rb) {
         Platform.runLater(() -> {
+            filters = new String[]{"", "", "", "", "", "", ""};
+            filterPopup = new Popup();
+            filter();
             loadCompetitors();
             loadView();
         });
     }
 
-    public void generateTable() {
+    private void generateTable() {
         initColumns();
         setColumnCellValues();
         addColumns();
     }
 
-    public  ObservableList<CompetitorRow> loadTable(ArrayList<Competitor> list) {
+    private Predicate<CompetitorRow> filter() {
+        Predicate<CompetitorRow> test = competitor -> {
+            boolean flag = true;
+
+            if (!Integer.toString(competitor.getPlayerNumber()).toLowerCase().contains(filters[0].toLowerCase())) {
+                flag = false;
+            }
+
+            if (!competitor.getPlayerName().toLowerCase().contains(filters[1].toLowerCase())) {
+                flag = false;
+            }
+
+            if (!competitor.getPlayerLevel().toString().toLowerCase().contains(filters[2].toLowerCase())) {
+                flag = false;
+            }
+
+            if (filters[3].equals("R6") && !competitor.getFavoriteAttacker().toString().toLowerCase().equals("N/A")) {
+                flag = false;
+            }
+
+            if (filters[3].equals("Valorant") && !competitor.getFavoriteAgent().toString().toLowerCase().equals("N/A")) {
+                flag = false;
+            }
+
+            if (!competitor.getFavoriteAgent().toString().toLowerCase().contains(filters[4])) {
+                flag = false;
+            }
+
+            if (!competitor.getFavoriteAttacker().toString().toLowerCase().contains(filters[5])) {
+                flag = false;
+            }
+
+            if (!competitor.getFavoriteDefender().toString().toLowerCase().contains(filters[6])) {
+                flag = false;
+            }
+
+
+            return flag;
+            
+        };
+        return test;
+    }
+
+    private  ObservableList<CompetitorRow> loadTable(ArrayList<Competitor> list) {
         ArrayList<CompetitorRow> outputList = new ArrayList<>();
         for(Competitor player: list) {
             if (player instanceof ValorantPlayer) {
@@ -68,8 +123,17 @@ public class ViewController extends Controller {
     }
 
     private void loadView() {
+        ObservableList<CompetitorRow> table = loadTable(competitors.getCompetitors());
         generateTable();
-        competitorTable.setItems(loadTable(competitors.getCompetitors()));
+        if (filterCheck()) {
+            FilteredList<CompetitorRow> data = new FilteredList<>(table, filter());
+            SortedList<CompetitorRow> sortedData = new SortedList<>(data);
+            sortedData.comparatorProperty().bind(competitorTable.comparatorProperty());
+            competitorTable.setItems(sortedData);
+        }
+        else {
+            competitorTable.setItems(table);
+        }
     }
 
     private void initColumns() {
@@ -114,16 +178,26 @@ public class ViewController extends Controller {
     } 
 
     private void filterDialog() throws IOException {
-        filters = new Popup();
+        filterPopup = new Popup();
         Parent root = Manager.loadFXML("pages/filters");
-        filters.getContent().add(root);
-        filters.show(Manager.stage);
+        filterPopup.getContent().add(root);
+        filterPopup.show(Manager.stage);
         filterButton.setText("Save");
     }
 
     private void saveFilters() {
-        filters.hide();
+        filterPopup.hide();
         filterButton.setText("Filters");
-        //TODO: filter implementation
+        filters = getFilters();
+        loadView();
+    }
+
+    private boolean filterCheck() {
+        for(String filter: filters) {
+            if (!filter.equals("")) {
+                return true;
+            }
+        }  
+        return false; 
     }
 }

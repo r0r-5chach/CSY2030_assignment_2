@@ -3,6 +3,7 @@ package com.r0r5chach.competitor.r6;
 import java.util.Locale;
 
 public enum R6Attacker {
+    NONE,
     GRIM,
     SENS,
     OSA,

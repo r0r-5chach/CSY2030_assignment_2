@@ -10,6 +10,8 @@ public enum Rank {
     /**
      * First Level
      */
+    NONE,
+    
     BRONZE,
     /**
      * Second Level

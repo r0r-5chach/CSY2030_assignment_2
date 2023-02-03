@@ -110,6 +110,7 @@ public class CompetitorList {
                 case SILVER -> freqs[1] += 1;
                 case GOLD -> freqs[2] += 1;
                 case PLATINUM -> freqs[3] += 1;
+                default -> throw new IllegalArgumentException("Unexpected value: " + player.getPlayerLevel());
             }
         }
         return freqs;

@@ -32,7 +32,12 @@ public class Manager extends Application {
 
     @Override
     public void stop() {
-        //TODO: output report to file
+        try {
+            competitors.createReportFile();
+        }
+        catch (IOException e) {
+            createErrorLog(e, "src/main/resources/com/r0r5chach/log.txt");
+        }
     }
 
     public static void setRoot(String fxml) throws IOException {

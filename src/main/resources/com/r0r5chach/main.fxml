@@ -7,20 +7,20 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.r0r5chach.controllers.MainController">
    <children>
-      <TabPane tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab onSelectionChanged="#getEditTab" text="Edit">
+          <Tab onSelectionChanged="#getTab" text="Edit">
                <content>
                   <AnchorPane fx:id="editTab" />
                </content></Tab>
-            <Tab onSelectionChanged="#getViewTab" text="View">
+            <Tab onSelectionChanged="#getTab" text="View">
               <content>
                 <AnchorPane fx:id="viewTab" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
               </content>
             </Tab>
-            <Tab text="Report">
+            <Tab onSelectionChanged="#getTab" text="Report">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane fx:id="reportTab" />
               </content>
             </Tab>
         </tabs>

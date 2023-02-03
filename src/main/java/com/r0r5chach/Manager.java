@@ -7,6 +7,7 @@ import static com.r0r5chach.CompetitorList.createErrorLog;
 import com.r0r5chach.controllers.Controller;
 import com.r0r5chach.controllers.EditController;
 import com.r0r5chach.controllers.MainController;
+import com.r0r5chach.controllers.ReportController;
 import com.r0r5chach.controllers.ViewController;
 
 import javafx.application.Application;
@@ -21,9 +22,12 @@ public class Manager extends Application {
     public static Stage stage;
     private static CompetitorList competitors;
 
+    private static Controller controller;
+
     @Override
     public void start(Stage stage) throws IOException {
         competitors = createList();
+        controller = null;
         scene = new Scene(loadFXML("main"), 640, 480);
         Manager.stage = stage;
         Manager.stage.setScene(scene);
@@ -47,7 +51,10 @@ public class Manager extends Application {
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Manager.class.getResource(fxml + ".fxml"));
         Parent root = fxmlLoader.load();
-        Controller controller;
+        if (controller != null) {
+            competitors = controller.getCompetitors();
+        }
+        
         switch(fxml) {
             case "main":
                 controller = fxmlLoader.<MainController>getController();
@@ -61,6 +68,11 @@ public class Manager extends Application {
                 controller = fxmlLoader.<ViewController>getController();
                 controller.setCompetitors(competitors);
                 break;
+            case "pages/report":
+                controller = fxmlLoader.<ReportController>getController();
+                controller.setCompetitors(competitors);
+                break;
+
         }
         
         

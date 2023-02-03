@@ -13,6 +13,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
 public class Controller implements Initializable {
@@ -22,33 +24,40 @@ public class Controller implements Initializable {
     @FXML
     protected AnchorPane viewTab;
 
+    @FXML
+    protected AnchorPane reportTab;
+
+    @FXML
+    protected TabPane tabs;
+
     protected CompetitorList competitors;
     protected ArrayList<Integer> competitorIds;
-
-    public void setCompetitors(CompetitorList competitors) {
-        this.competitors = competitors;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
             loadCompetitors();
-            
         });        
     }
-
-    @FXML
-    protected void getEditTab() throws IOException {
-        Parent root = Manager.loadFXML("pages/edit");
-        editTab.getChildren().clear();
-        editTab.getChildren().add(root);
+    
+    public void setCompetitors(CompetitorList competitors) {
+        this.competitors = competitors;
+    }
+    
+    public CompetitorList getCompetitors() {
+        return competitors;
     }
 
     @FXML
-    protected void getViewTab() throws IOException {
-        Parent root = Manager.loadFXML("pages/view");
-        viewTab.getChildren().clear();
-        viewTab.getChildren().add(root);
+    protected void getTab() throws IOException {
+        Parent root = null;
+        Tab tab = tabs.getSelectionModel().getSelectedItem();
+        switch(tab.getText().toLowerCase()) {
+            case "view" -> root = Manager.loadFXML("pages/view");
+            case "edit" -> root = Manager.loadFXML("pages/edit");
+            case "report" -> root = Manager.loadFXML("pages/report");
+        }
+        tab.setContent(root);
     }
 
     protected void loadCompetitors(){

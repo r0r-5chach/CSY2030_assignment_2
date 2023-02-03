@@ -2,7 +2,7 @@ package com.r0r5chach.competitor;
 
 import java.text.DecimalFormat;
 /**
- * Class that defines the various attributes and methods associated with a Valorant Player
+ * Class that defines the various attributes and methods associated with a Competitor
  * @author r0r5chach
  */
 public abstract class Competitor {
@@ -32,6 +32,7 @@ public abstract class Competitor {
      * @param playerNumber the number of the player
      * @param playerName the name of the player
      * @param playerLevel the level of the player
+     * @param scores an array containing the 6 scores the player has achieved
      */
     public Competitor(int playerNumber, Name playerName, Rank playerLevel, int[] scores) {
         this.playerNumber = playerNumber;

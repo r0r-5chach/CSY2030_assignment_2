@@ -17,7 +17,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.RadioButton;
-
+/**
+ * Class that defines the controller for the filters View (filters.fxml) of the GUI
+ * Inherits from com.r0r5chach.controllers.Controller
+ */
 public class FiltersController implements Initializable {
     @FXML
     private TextField numberFilter;

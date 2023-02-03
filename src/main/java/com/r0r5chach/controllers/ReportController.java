@@ -8,7 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-
+/**
+ * Class that defines the controller for the report View of the GUI
+ * Inherits from com.r0r5chach.controllers.Controller
+ */
 public class ReportController extends Controller {
     @FXML
     private ListView<Integer> competitorList;

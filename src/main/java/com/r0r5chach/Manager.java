@@ -93,7 +93,7 @@ public class Manager extends Application {
             competitors.readCompetitors(r6Players);
         }
         catch (Exception e) {
-            createErrorLog(e, "src/main/resources/log.txt");
+            createErrorLog(e, "src/main/resources/com/r0r5chach/log.txt");
         }
         return competitors;
     }

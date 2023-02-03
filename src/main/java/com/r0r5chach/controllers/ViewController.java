@@ -27,7 +27,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Popup;
-
+/**
+ * Class that defines the Controller for the view View (view.fxml) of the GUI
+ * Inherits from com.r0r5chach.controllers.Controller
+ */
 public class ViewController extends Controller {
     @FXML
     private TableView<CompetitorRow> competitorTable;

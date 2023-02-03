@@ -19,8 +19,6 @@ import com.r0r5chach.competitor.r6.R6Defender;
 import com.r0r5chach.competitor.r6.R6Player;
 import com.r0r5chach.competitor.valorant.ValorantAgent;
 import com.r0r5chach.competitor.valorant.ValorantPlayer;
-
-
 public class CompetitorList {
     private final ArrayList<Competitor> competitors;
     private String reportContents;

@@ -7,9 +7,13 @@ import com.r0r5chach.competitor.Name;
 import com.r0r5chach.competitor.Rank;
 /**
  * Class that defines the various attributes and methods associated with a Valorant Player
+ * Inherits from the com.r0r5chach.competitor.Competitor Class
  * @author r0r5chach
  */
 public class ValorantPlayer extends Competitor {
+    /**
+     * Attribute that stores the player's favorite character to play
+     */
     private ValorantAgent favoriteAgent;
     /**
      * Constructs an object with attributes matching the parameters passed
@@ -17,6 +21,7 @@ public class ValorantPlayer extends Competitor {
      * @param playerName the name of the player
      * @param playerLevel the level of the player
      * @param favoriteAgent the character the player plays most
+     * @param scores an array containing the 6 scores the player has achieved
      */
     public ValorantPlayer(int playerNumber, Name playerName, Rank playerLevel, ValorantAgent favoriteAgent, int[] scores) {
         super(playerNumber, playerName, playerLevel, scores);

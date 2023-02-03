@@ -2,7 +2,7 @@ package com.r0r5chach.competitor;
 
 /**
  * Class that defines a name and it's parts
- * @author John.Kanyaru@northampton.ac.uk
+ * @author r0r5chach
  */
 public class Name {
 	/**
@@ -128,4 +128,3 @@ public class Name {
 	  return result;
   	}
 }
-

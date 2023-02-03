@@ -1,8 +1,13 @@
 package com.r0r5chach.competitor.r6;
 
 import java.util.Locale;
-
+/** All Defenders an R6Player can play
+* @author r0r5chach
+*/
 public enum R6Defender {
+    /**
+     * For ChoiceBoxes so selection is not null
+     */
     NONE,
     SOLIS,
     AZAMI,
@@ -37,7 +42,10 @@ public enum R6Defender {
     BANDIT,
     TACHANKA,
     KAPKAN;
-    
+    /**
+     * Get the name of the defender
+     * @return the name of the defender as a formatted string
+     */
     public String getDefender() {
         return this.name().charAt(0) + this.name().substring(1).toLowerCase(Locale.ROOT); //Capitalizes the first letter and makes sure the other letters are lowercase
     }

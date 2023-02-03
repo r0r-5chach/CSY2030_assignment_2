@@ -1,12 +1,14 @@
 package com.r0r5chach.competitor.valorant;
 
 import java.util.Locale;
-
 /**
  * All Characters a ValorantPlayer can play
  * @author r0r5chach
  */
 public enum ValorantAgent {
+    /**
+     * For ChoiceBoxes so selection is not null
+     */
     NONE,
     BRIMSTONE,
     VIPER,
@@ -30,7 +32,7 @@ public enum ValorantAgent {
     HARBOR;
     /**
      * Get the name of the character
-     * @return a formatted string containing the character name
+     * @return the name of the character as a formatted string
      */
     public String getAgent() {
         return this.name().charAt(0) + this.name().substring(1).toLowerCase(Locale.ROOT); //Capitalizes the first letter and makes sure the other letters are lowercase

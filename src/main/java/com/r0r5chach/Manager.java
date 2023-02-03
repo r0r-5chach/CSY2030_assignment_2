@@ -1,19 +1,19 @@
 package com.r0r5chach;
-import java.io.File;
 
-import javafx.application.Application;
+import java.io.File;
 import java.io.IOException;
 
+import static com.r0r5chach.CompetitorList.createErrorLog;
 import com.r0r5chach.controllers.Controller;
 import com.r0r5chach.controllers.EditController;
 import com.r0r5chach.controllers.MainController;
 import com.r0r5chach.controllers.ViewController;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import static com.r0r5chach.CompetitorList.createErrorLog;
 
 public class Manager extends Application {
 
@@ -66,7 +66,7 @@ public class Manager extends Application {
         launch();
     }
 
-    private static CompetitorList createList() {
+    private CompetitorList createList() {
         CompetitorList competitors = null;
         File valorantPlayers = new File("src/main/resources/com/r0r5chach/valorantPlayers.txt");
         File r6Players = new File("src/main/resources/com/r0r5chach/r6Players.txt");

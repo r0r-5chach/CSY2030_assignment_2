@@ -3,6 +3,7 @@ package com.r0r5chach.controllers;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
 import com.r0r5chach.competitor.Competitor;
 import com.r0r5chach.competitor.Name;
 import com.r0r5chach.competitor.Rank;

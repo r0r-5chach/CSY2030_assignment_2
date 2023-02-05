@@ -4,5 +4,4 @@ package com.r0r5chach.controllers;
  * Inherits from com.r0r5chach.controllers.Controller
  */
 public class MainController extends Controller {    
-
 }

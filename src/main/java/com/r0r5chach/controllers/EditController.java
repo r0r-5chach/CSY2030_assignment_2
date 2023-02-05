@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 /**
  * Class that defines the controller for the edit View (edit.fxml) of the GUI
  * Inherits from com.r0r5chach.controllers.Controller
+ * @author r0r5chach
  */
 public class EditController extends Controller {
     /**

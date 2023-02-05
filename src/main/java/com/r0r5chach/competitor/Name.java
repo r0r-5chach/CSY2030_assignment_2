@@ -117,7 +117,6 @@ public class Name {
 	/**
 	 * Get the initials of the stored name
 	 * @return a string containing the initials
-	 * @author r0r5chach
 	 */
 	public String getInitials() {
 	  String result = firstName.substring(0,1);

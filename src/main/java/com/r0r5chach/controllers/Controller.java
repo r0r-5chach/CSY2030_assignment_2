@@ -19,6 +19,7 @@ import javafx.scene.control.TabPane;
 /**
  * Class that defines a generic controller for the GUI
  * Inherits from javafx.fxml.Initializable
+ * @author r0r5chach
  */
 public class Controller implements Initializable {
     /**

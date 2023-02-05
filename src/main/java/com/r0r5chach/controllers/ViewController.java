@@ -85,11 +85,11 @@ public class ViewController extends Controller {
                 flag = false;
             }
 
-            if (filters[3].equals("R6") && !competitor.getFavoriteAttacker().toString().toLowerCase().equals("N/A")) {
+            if (filters[3].equals("R6") && competitor.getFavoriteAttacker().toString().equals("N/A")) {
                 flag = false;
             }
 
-            if (filters[3].equals("Valorant") && !competitor.getFavoriteAgent().toString().toLowerCase().equals("N/A")) {
+            if (filters[3].equals("Valorant") && competitor.getFavoriteAgent().toString().equals("N/A")) {
                 flag = false;
             }
 

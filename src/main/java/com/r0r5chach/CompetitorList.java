@@ -155,14 +155,14 @@ public class CompetitorList {
         return hS;
     }
 
-    public File createReportFile() throws IOException {
+    public File createReportFile(String pathString) throws IOException {
         boolean exists;
         int count = 0;
         Path path;
         FileWriter report = null;
 
         do {
-            path = Path.of("src/main/resources/com/r0r5chach/report"+count+ ".txt");
+            path = Path.of(pathString+"/report"+count+ ".txt");
             exists = Files.exists(path);
 
             if(exists) {

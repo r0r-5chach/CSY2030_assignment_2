@@ -37,7 +37,7 @@ public class Manager extends Application {
     @Override
     public void stop() {
         try {
-            competitors.createReportFile();
+            competitors.createReportFile("src/main/resources/com/r0r5chach");
         }
         catch (IOException e) {
             createErrorLog(e, "src/main/resources/com/r0r5chach/log.txt");

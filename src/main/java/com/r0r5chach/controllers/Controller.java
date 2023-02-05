@@ -63,8 +63,8 @@ public class Controller implements Initializable {
     /**
      * Gets the tab selected on the GUI
      */
-    @FXML
-    protected void getTab() {
+    @FXML //Triggered when a new tab is selected
+    protected void getTab() { 
         Parent root = null;
         Tab tab = tabs.getSelectionModel().getSelectedItem();
         try {

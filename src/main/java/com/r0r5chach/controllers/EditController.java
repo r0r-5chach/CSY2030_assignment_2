@@ -130,6 +130,36 @@ public class EditController extends Controller {
         });
     }
     /**
+     * Loads the edit View elements with their appropriate data
+     */
+    public void loadEdit() {
+        competitorsList.setItems(FXCollections.observableList(competitorIds));
+        playerLevel.setItems(FXCollections.observableList(Arrays.asList(Rank.values())));
+        favoriteAttacker.setItems(FXCollections.observableList(Arrays.asList(R6Attacker.values())));
+        favoriteDefender.setItems(FXCollections.observableList(Arrays.asList(R6Defender.values())));
+        favoriteAgent.setItems(FXCollections.observableList(Arrays.asList(ValorantAgent.values())));
+    }
+    /**
+     * Gets the player selected in the competitors list and loads the player in the editing area of the edit View
+     */
+    @FXML //Triggered when new list item is selected
+    private void getCompetitor() {
+        Competitor player = competitors.getCompetitors().get(competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem()));
+        loadPlayer(player);
+    }
+    /**
+     * Updates the player that is loaded in the editing area of the edit View
+     */
+    @FXML //Triggered when the update button is pressed
+    private void updateCompetitor() {
+        int playerIndex = competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem());
+        Competitor player = competitors.getCompetitors().get(playerIndex);
+        updatePlayer(player);
+        competitorIds.set(playerIndex, player.getPlayerNumber());
+        loadEdit();
+        loadPlayer(player);
+    }
+    /**
      * Loads the selected player into the editing area of the edit View
      * @param player The player to load into the editing area
      */
@@ -206,35 +236,5 @@ public class EditController extends Controller {
             newScores[i] = Integer.parseInt(scoreFields[i].getText());
         }
         player.setScores(newScores);
-    }
-    /**
-     * Gets the player selected in the competitors list and loads the player in the editing area of the edit View
-     */
-    @FXML //Triggered when new list item is selected
-    private void getCompetitor() {
-        Competitor player = competitors.getCompetitors().get(competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem()));
-        loadPlayer(player);
-    }
-    /**
-     * Updates the player that is loaded in the editing area of the edit View
-     */
-    @FXML //Triggered when the update button is pressed
-    private void updateCompetitor() {
-        int playerIndex = competitorIds.indexOf(competitorsList.getSelectionModel().getSelectedItem());
-        Competitor player = competitors.getCompetitors().get(playerIndex);
-        updatePlayer(player);
-        competitorIds.set(playerIndex, player.getPlayerNumber());
-        loadEdit();
-        loadPlayer(player);
-    }
-    /**
-     * Loads the edit View elements with their appropriate data
-     */
-    public void loadEdit() {
-        competitorsList.setItems(FXCollections.observableList(competitorIds));
-        playerLevel.setItems(FXCollections.observableList(Arrays.asList(Rank.values())));
-        favoriteAttacker.setItems(FXCollections.observableList(Arrays.asList(R6Attacker.values())));
-        favoriteDefender.setItems(FXCollections.observableList(Arrays.asList(R6Defender.values())));
-        favoriteAgent.setItems(FXCollections.observableList(Arrays.asList(ValorantAgent.values())));
     }
 }

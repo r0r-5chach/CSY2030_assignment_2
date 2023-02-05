@@ -79,9 +79,9 @@ public class ValorantPlayerTest {
                 Player Number: 2
                 Name: Joshua Luke Perry
                 Player Level: Gold
-                Favorite Agent: Fade
                 Scores: 5, 5, 5, 5, 5, 5
-                Overall Score: 5.0""", vP.getFullDetails());
+                Overall Score: 5.0
+                Favorite Agent: Fade""", vP.getFullDetails());
     }
 
     @Test

@@ -24,7 +24,7 @@ public class NameTest {
     }
 
     @Test
-    public void nameTestFullName() {
+    public void nameFullNameTest() {
         Name n = new Name("Joshua Luke Perry");
         assertEquals("Joshua", n.getFirstName());
         assertEquals("Luke", n.getMiddleName());
@@ -37,7 +37,7 @@ public class NameTest {
     }
 
     @Test
-    public void nameTestSetFirstName() {
+    public void nameSetFirstNameTest() {
         Name n = new Name("Joshua Luke Perry");
 
         n.setFirstName("Bradley");
@@ -45,7 +45,7 @@ public class NameTest {
     }
 
     @Test
-    public void nameTestSetLastName() {
+    public void nameSetLastNameTest() {
         Name n = new Name("Joshua Luke Perry");
 
         n.setLastName("Gordon-Taylor");
@@ -53,19 +53,19 @@ public class NameTest {
     }
 
     @Test
-    public void nameTestGetFirstAndLastName() {
+    public void nameGetFirstAndLastNameTest() {
         Name n = new Name("Joshua Luke Perry");
         assertEquals("Joshua Perry", n.getFirstAndLastName());
     }
 
     @Test
-    public void nameTestGetLastCommaFirst() {
+    public void nameGetLastCommaFirstTest() {
         Name n = new Name("Joshua Luke Perry");
         assertEquals("Perry, Joshua", n.getLastCommaFirst());
     }
 
     @Test
-    public void nameTestGetFullName() {
+    public void nameGetFullNameTest() {
         Name n = new Name("Joshua Luke Perry");
         assertEquals("Joshua Luke Perry", n.getFullName());
         n.setMiddleName("");
@@ -73,7 +73,7 @@ public class NameTest {
     }
 
     @Test
-    public void nameTestGetInitials() {
+    public void nameGetInitialsTest() {
         Name n = new Name("Joshua Luke Perry");
         assertEquals("JLP", n.getInitials());
         n.setMiddleName("");
@@ -82,22 +82,22 @@ public class NameTest {
 
 
     @Test
-    public void nameTestGetFirstName() {
-        //Already tested in nameTestFNameLName()
+    public void nameGetFirstNameTest() {
+        //Already tested in nameFNameLNameTest()
     }
 
     @Test
-    public void nameTestGetMiddleName() {
-        //Already tested in nameTestFNameMNameLName()
+    public void nameGetMiddleNameTest() {
+        //Already tested in nameFNameMNameLNameTest()
     }
 
     @Test
-    public void nameTestGetLastName() {
-        //Already tested in nameTestFullName()
+    public void nameGetLastNameTest() {
+        //Already tested in nameFullNameTest()
     }
 
     @Test
-    public void nameTestSetMiddleName() {
-        //Already tested in nameTestGetFullName()
+    public void nameSetMiddleNameTest() {
+        //Already tested in nameGetFullNameTest()
     }
 }

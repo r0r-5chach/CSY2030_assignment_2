@@ -7,7 +7,7 @@ import com.r0r5chach.competitor.Rank;
 
 public class RankTest {
     @Test
-    public void valorantRankTestGetRank() {
+    public void valorantRankGetRankTest() {
         Rank vR = Rank.BRONZE;
         assertEquals("Bronze", vR.getRank());
     }

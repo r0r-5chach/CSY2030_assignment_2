@@ -6,7 +6,7 @@ import com.r0r5chach.competitor.valorant.ValorantAgent;
 
 public class ValorantAgentTest {
     @Test
-    public void valorantAgentTestGetAgent() {
+    public void valorantAgentGetAgentTest() {
         ValorantAgent vA = ValorantAgent.HARBOR;
         assertEquals("Harbor", vA.getAgent());
     }

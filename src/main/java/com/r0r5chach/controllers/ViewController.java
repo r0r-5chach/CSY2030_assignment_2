@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import static com.r0r5chach.controllers.FiltersController.getFilters;
+
+import com.r0r5chach.CompetitorList;
 import com.r0r5chach.CompetitorRow;
 import com.r0r5chach.Manager;
 import com.r0r5chach.competitor.Competitor;
@@ -24,36 +26,75 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Popup;
 /**
  * Class that defines the Controller for the view View (view.fxml) of the GUI
  * Inherits from com.r0r5chach.controllers.Controller
+ * @author r0r5chach
  */
 public class ViewController extends Controller {
+    /**
+     * Attribute that stores the table view for the view View
+     */
     @FXML
     private TableView<CompetitorRow> competitorTable;
-
+    /**
+     * Attribute that stores the players' number column
+     */
     private TableColumn<CompetitorRow,Integer> playerNumCol;
+    /**
+     * Attribute that stores the players' name column
+     */
     private TableColumn<CompetitorRow,String> playerNameCol;
+    /**
+     * Attribute that stores the players' level column
+     */
     private TableColumn<CompetitorRow,Rank> playerLevelCol;
+    /**
+     * Attribute that stores the players' scores column
+     */
     private TableColumn<CompetitorRow,String> scoresCol;
+    /**
+     * Attribute that stores the players' favorite characters column
+     */
     private TableColumn<CompetitorRow,String> favoriteCharsCol;
+    /**
+     * Attribute that stores the players' favorite agent column
+     * This is a sub column of the players' favorite characters column
+     */
     private TableColumn<CompetitorRow,String> favoriteAgentCol;
+    /**
+     * Attribute that stores the players' favorite attacker column
+     * This is a sub column of the players' favorite characters column
+     */
     private TableColumn<CompetitorRow,String> favoriteAttackerCol;
+    /**
+     * Attribute that stores the players' favorite defender column
+     * This is a sub column of the players' favorite characters column
+     */
     private TableColumn<CompetitorRow,String> favoriteDefenderCol;
-
+    /**
+     * Attribute that stores the filter button for the view View
+     */
     @FXML 
     private Button filterButton;
+    /**
+     * Attribute that stores the filter popup
+     */
     private Popup filterPopup;
+    /**
+     * Attribute that stores the Array that contains active filters
+     */
     private String[] filters;
-
-    @FXML
-    private TextArea filterBox;
-
+    /**
+     * Method that runs when the program initializes the edit View
+     * (param details copied from super implementation)
+     * @param url The location used to resolve relative paths for the root object
+     * @param rb The resources used to localize the root object
+     */
     @Override
-    public void initialize(URL ul, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             filters = new String[]{"", "", "", "", "", "", ""};
             filterPopup = new Popup();
@@ -62,13 +103,29 @@ public class ViewController extends Controller {
             loadView();
         });
     }
-
+    /**
+     * Either opens the filters popup or saves the filter selection dependant on what state the button is in
+     */
+    @FXML //Triggers when filter/save button is pressed
+    private void filterPress() {
+        switch(filterButton.getText().toLowerCase()) {
+            case "filters" -> filterDialog();
+            case "save" -> saveFilters();
+        }
+        
+    } 
+    /**
+     * Generates the table
+     */
     private void generateTable() {
         initColumns();
         setColumnCellValues();
         addColumns();
     }
-
+    /**
+     * Defines the predicate that controls filtering for the table
+     * @return The predicate
+     */
     private Predicate<CompetitorRow> filter() {
         Predicate<CompetitorRow> test = competitor -> {
             boolean flag = true;
@@ -111,7 +168,11 @@ public class ViewController extends Controller {
         };
         return test;
     }
-
+    /**
+     * Loads the rows of data into usable data for the table
+     * @param list The list of competitors to be loaded into the table
+     * @return The list of rows as usable data
+     */
     private  ObservableList<CompetitorRow> loadTable(ArrayList<Competitor> list) {
         ArrayList<CompetitorRow> outputList = new ArrayList<>();
         for(Competitor player: list) {
@@ -124,7 +185,9 @@ public class ViewController extends Controller {
         }
         return FXCollections.observableArrayList(outputList);
     }
-
+    /**
+     * Loads the view View elements with their appropriate data
+     */
     private void loadView() {
         ObservableList<CompetitorRow> table = loadTable(competitors.getCompetitors());
         generateTable();
@@ -138,7 +201,9 @@ public class ViewController extends Controller {
             competitorTable.setItems(table);
         }
     }
-
+    /**
+     * Initializes the table columns
+     */
     private void initColumns() {
         playerNumCol = new TableColumn<CompetitorRow,Integer>("Player Number");
         playerNameCol = new TableColumn<CompetitorRow,String>("Player Name");
@@ -149,7 +214,9 @@ public class ViewController extends Controller {
         favoriteAttackerCol = new TableColumn<CompetitorRow,String>("Attacker");
         favoriteDefenderCol = new TableColumn<CompetitorRow,String>("Defender");
     }
-
+    /**
+     * Sets the appropriate attribute to the corresponding column
+     */
     private void setColumnCellValues() {
         playerNumCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,Integer>("playerNumber"));
         playerNameCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("playerName"));
@@ -159,7 +226,9 @@ public class ViewController extends Controller {
         favoriteAttackerCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteAttacker"));
         favoriteDefenderCol.setCellValueFactory(new PropertyValueFactory<CompetitorRow,String>("favoriteDefender"));
     }
-
+    /**
+     * Add the table columns to the table
+     */
     private void addColumns() {
         competitorTable.getColumns().add(playerNumCol);
         competitorTable.getColumns().add(playerNameCol);
@@ -170,31 +239,35 @@ public class ViewController extends Controller {
         favoriteCharsCol.getColumns().add(favoriteDefenderCol);
         competitorTable.getColumns().add(favoriteCharsCol);
     }
-
-    @FXML
-    private void filterPress() throws IOException {
-        switch(filterButton.getText().toLowerCase()) {
-            case "filters" -> filterDialog();
-            case "save" -> saveFilters();
-        }
-        
-    } 
-
-    private void filterDialog() throws IOException {
+    /**
+     * Open the filters popup and change the state of the button
+     */
+    private void filterDialog() {
         filterPopup = new Popup();
-        Parent root = Manager.loadFXML("pages/filters");
+        Parent root = null;
+        try {
+            root = Manager.loadFXML("pages/filters");
+        }
+        catch (IOException e) {
+            CompetitorList.createErrorLog(e, "src/main/resources/com/r0r5chach");
+        }
         filterPopup.getContent().add(root);
         filterPopup.show(Manager.stage);
         filterButton.setText("Save");
     }
-
+    /**
+     * Save the filter selection from the filters popup
+     */
     private void saveFilters() {
         filterPopup.hide();
         filterButton.setText("Filters");
         filters = getFilters();
         loadView();
     }
-
+    /**
+     * Checks if a filter is selected
+     * @return true if a filter is selected; false otherwise
+     */
     private boolean filterCheck() {
         for(String filter: filters) {
             if (!filter.equals("")) {

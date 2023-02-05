@@ -122,7 +122,7 @@ public class EditController extends Controller {
      * @param rb The resources used to localize the root object
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             textFields = new TextField[]{playerNumber, playerName, overallScore};
             scoreFields = new TextField[]{scores0, scores1, scores2, scores3, scores4, scores5};
